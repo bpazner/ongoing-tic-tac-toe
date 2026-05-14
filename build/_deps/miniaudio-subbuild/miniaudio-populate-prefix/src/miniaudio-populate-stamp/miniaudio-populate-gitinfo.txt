@@ -1,3 +1,0 @@
-repository='https://github.com/mackron/miniaudio.git'
-module=''
-tag='origin'
