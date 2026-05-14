@@ -1,0 +1,152 @@
+[
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/app/main.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/bot.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/game.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/utils.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/scene.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/stb_image.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/src/miniaudio.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/imgui.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/imgui_draw.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/imgui_tables.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/imgui_widgets.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O3 -std=gnu++20 -o CMakeFiles/main.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/app/main.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/bot.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/game.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/utils.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/scene.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/stb_image.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/src/miniaudio.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src\" -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src\" -O0 -g -std=gnu++20 -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -O0 -g -std=gnu++20 -o CMakeFiles/test.dir/app/test.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -O0 -g -std=gnu++20 -o CMakeFiles/test.dir/src/bot.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -O0 -g -std=gnu++20 -o CMakeFiles/test.dir/src/game.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
+},
+{
+  "directory": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build",
+  "command": "/usr/bin/c++  -I\"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include\" -O0 -g -std=gnu++20 -o CMakeFiles/test.dir/src/utils.cpp.o -c \"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp\"",
+  "file": "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+}
+]

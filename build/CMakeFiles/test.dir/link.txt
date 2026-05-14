@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test.dir/app/test.cpp.o CMakeFiles/test.dir/src/bot.cpp.o CMakeFiles/test.dir/src/game.cpp.o CMakeFiles/test.dir/src/utils.cpp.o -o test 

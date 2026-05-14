@@ -1,0 +1,176 @@
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#include "miniaudio.h"
+#include "scene.hpp"
+#include "stb_image.h"
+#include "utils.hpp"
+
+#include <GLFW/glfw3.h>
+#include <algorithm>
+#include <random>
+
+// UI configuration
+constexpr const char *TITLE = "Ongoing Tic-Tac-Toe";
+constexpr float WINDOWED_FACTOR = 0.6f;
+constexpr float BASE_FONT_SIZE = 160.0f;
+constexpr float FONT_SIZE_RATIO = 0.03f / BASE_FONT_SIZE;
+constexpr float FRAME_ROUNDING_RATIO = 0.005f;
+constexpr const char *FONT_PATH = "../assets/ui/pixel-emulator.ttf";
+constexpr const char *X_ICON_PATH = "../assets/ui/images/x_icon.png";
+constexpr const char *O_ICON_PATH = "../assets/ui/images/o_icon.png";
+constexpr const char *MUSIC_ICON_PATH = "../assets/ui/images/music_icon.png";
+
+// Background bossa nova music
+static constexpr const char *BGM_PATH =
+    "../assets/audio/bossa_nova_background.mp3";
+static void load_bgm(ma_engine *audio, ma_sound *bgm) {
+  ma_sound_init_from_file(audio, BGM_PATH, 0, nullptr, nullptr, bgm);
+  ma_sound_set_looping(bgm, MA_TRUE);
+  ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
+  ma_sound_start(bgm);
+}
+
+static GLuint load_texture(const char *path) {
+  int w, h, channels;
+  unsigned char *data = stbi_load(path, &w, &h, &channels, 4);
+  GLuint tex = 0;
+  if (data) {
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                 data);
+    stbi_image_free(data);
+  }
+  return tex;
+}
+
+int main() {
+  // Init GLFW
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+
+  // Create window hidden
+  GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+  int win_w = (int)(mode->width * WINDOWED_FACTOR);
+  int win_h = (int)(mode->height * WINDOWED_FACTOR);
+  GLFWwindow *window = glfwCreateWindow(win_w, win_h, TITLE, nullptr, nullptr);
+
+  // Center and show window
+  int mx, my;
+  glfwGetMonitorPos(monitor, &mx, &my);
+  glfwSetWindowPos(window, mx + (mode->width - win_w) / 2,
+                   my + (mode->height - win_h) / 2);
+  glfwShowWindow(window);
+  glfwMakeContextCurrent(window);
+  glfwSwapInterval(1);
+
+  // Init ImGui
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGui::StyleColorsDark();
+  ImGuiIO &io = ImGui::GetIO();
+
+  // Init font, make sure it is large enough to prevent stretching
+  ImFontConfig font_cfg;
+  font_cfg.OversampleH = 1;
+  font_cfg.OversampleV = 1;
+  font_cfg.PixelSnapH = true;
+  io.Fonts->AddFontFromFileTTF(FONT_PATH, BASE_FONT_SIZE, &font_cfg);
+  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplOpenGL3_Init("#version 330");
+
+  // Load icon images
+  GLuint x_tex = load_texture(X_ICON_PATH);
+  GLuint o_tex = load_texture(O_ICON_PATH);
+  GLuint music_tex = load_texture(MUSIC_ICON_PATH);
+
+  // Init audio engine and start background music
+  ma_engine audio;
+  bool audio_ok = ma_engine_init(nullptr, &audio) == MA_SUCCESS;
+  ma_sound bgm;
+  if (audio_ok) {
+    // load_bgm(&audio, &bgm);
+  }
+
+  // Start on menu scene
+  std::unique_ptr<Scene> scene = std::make_unique<MenuScene>(
+      audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+
+  while (!glfwWindowShouldClose(window)) {
+    // Handle input events
+    glfwPollEvents();
+
+    // Scale frame rounding and font size according to window
+    int fb_w, fb_h;
+    glfwGetFramebufferSize(window, &fb_w, &fb_h);
+    float min_dim = std::min(fb_w * mode->height / mode->width, fb_h);
+    if (mode->height > mode->width) {
+      min_dim = std::min(fb_w, fb_h * mode->width / mode->height);
+    }
+    ImGui::GetStyle().FrameRounding = FRAME_ROUNDING_RATIO * min_dim;
+    ImGui::GetIO().FontGlobalScale = FONT_SIZE_RATIO * min_dim;
+
+    // Start ImGui frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    // Draw current scene, handle transitions
+    SceneType next = scene->draw();
+    if (next == SceneType::GAME) {
+      auto *menu = static_cast<MenuScene *>(scene.get());
+      if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
+        scene = std::make_unique<PVPScene>(
+            menu->get_board_dimension(), menu->get_in_a_row(), x_tex, o_tex,
+            audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+      } else {
+        bool player_x;
+        if (menu->get_player_side() == PlayerSide::RANDOM) {
+          std::mt19937 rng{std::random_device{}()};
+          player_x = std::uniform_int_distribution<int>(0, 1)(rng);
+        } else {
+          player_x = menu->get_player_side() == PlayerSide::X;
+        }
+        scene = std::make_unique<PVBScene>(
+            menu->get_board_dimension(), menu->get_in_a_row(),
+            menu->get_depth(), player_x, false, x_tex, o_tex,
+            audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+      }
+    } else if (next == SceneType::MENU) {
+      scene = std::make_unique<MenuScene>(audio_ok ? &audio : nullptr,
+                                          audio_ok ? &bgm : nullptr, music_tex);
+    } else if (next == SceneType::QUIT) {
+      glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+
+    // Render ImGui draw data onto cleared framebuffer
+    ImGui::Render();
+    glViewport(0, 0, fb_w, fb_h);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    glfwSwapBuffers(window);
+  }
+
+  // Cleanup
+  if (audio_ok) {
+    ma_sound_uninit(&bgm);
+    ma_engine_uninit(&audio);
+  }
+  glDeleteTextures(1, &x_tex);
+  glDeleteTextures(1, &o_tex);
+  glDeleteTextures(1, &music_tex);
+  ImGui_ImplOpenGL3_Shutdown();
+  ImGui_ImplGlfw_Shutdown();
+  ImGui::DestroyContext();
+  glfwDestroyWindow(window);
+  glfwTerminate();
+
+  return 0;
+}
