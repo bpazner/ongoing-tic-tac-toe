@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src/miniaudio.c" "_deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o" "gcc" "_deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o.d"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src/miniaudio.c" "_deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o" "gcc" "_deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o.d"
   )
 
 # Targets to which this target links.

@@ -22,8 +22,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(miniaudio-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/mackron/miniaudio.git" "GIT_TAG" "master" "GIT_SHALLOW" "TRUE"
-                    SOURCE_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src"
-                    BINARY_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build"
+                    SOURCE_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src"
+                    BINARY_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

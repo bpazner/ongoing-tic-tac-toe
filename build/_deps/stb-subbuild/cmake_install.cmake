@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/Ben/Desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-subbuild
+# Install script for directory: /mnt/c/Users/Ben/Desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/stb-subbuild
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/Ben/Desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-subbuild/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/Ben/Desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/stb-subbuild/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -22,8 +22,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(stb-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/nothings/stb.git" "GIT_TAG" "master" "GIT_SHALLOW" "TRUE"
-                    SOURCE_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src"
-                    BINARY_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-build"
+                    SOURCE_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/stb-src"
+                    BINARY_DIR          "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/stb-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

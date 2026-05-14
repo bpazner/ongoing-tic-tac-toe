@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot"
+CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build"
+CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main-debug.dir/depend.make
@@ -72,184 +72,184 @@ include CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/app/main.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/app/main.cpp.o: ../app/main.cpp
 CMakeFiles/main-debug.dir/app/main.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main-debug.dir/app/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/app/main.cpp.o -MF CMakeFiles/main-debug.dir/app/main.cpp.o.d -o CMakeFiles/main-debug.dir/app/main.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main-debug.dir/app/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/app/main.cpp.o -MF CMakeFiles/main-debug.dir/app/main.cpp.o.d -o CMakeFiles/main-debug.dir/app/main.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/main.cpp"
 
 CMakeFiles/main-debug.dir/app/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/app/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp" > CMakeFiles/main-debug.dir/app/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/main.cpp" > CMakeFiles/main-debug.dir/app/main.cpp.i
 
 CMakeFiles/main-debug.dir/app/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/app/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/main.cpp" -o CMakeFiles/main-debug.dir/app/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/main.cpp" -o CMakeFiles/main-debug.dir/app/main.cpp.s
 
 CMakeFiles/main-debug.dir/src/bot.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/bot.cpp.o: ../src/bot.cpp
 CMakeFiles/main-debug.dir/src/bot.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main-debug.dir/src/bot.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/bot.cpp.o -MF CMakeFiles/main-debug.dir/src/bot.cpp.o.d -o CMakeFiles/main-debug.dir/src/bot.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main-debug.dir/src/bot.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/bot.cpp.o -MF CMakeFiles/main-debug.dir/src/bot.cpp.o.d -o CMakeFiles/main-debug.dir/src/bot.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp"
 
 CMakeFiles/main-debug.dir/src/bot.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/bot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp" > CMakeFiles/main-debug.dir/src/bot.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp" > CMakeFiles/main-debug.dir/src/bot.cpp.i
 
 CMakeFiles/main-debug.dir/src/bot.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/bot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp" -o CMakeFiles/main-debug.dir/src/bot.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp" -o CMakeFiles/main-debug.dir/src/bot.cpp.s
 
 CMakeFiles/main-debug.dir/src/game.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/game.cpp.o: ../src/game.cpp
 CMakeFiles/main-debug.dir/src/game.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main-debug.dir/src/game.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/game.cpp.o -MF CMakeFiles/main-debug.dir/src/game.cpp.o.d -o CMakeFiles/main-debug.dir/src/game.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main-debug.dir/src/game.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/game.cpp.o -MF CMakeFiles/main-debug.dir/src/game.cpp.o.d -o CMakeFiles/main-debug.dir/src/game.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp"
 
 CMakeFiles/main-debug.dir/src/game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/game.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp" > CMakeFiles/main-debug.dir/src/game.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp" > CMakeFiles/main-debug.dir/src/game.cpp.i
 
 CMakeFiles/main-debug.dir/src/game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/game.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp" -o CMakeFiles/main-debug.dir/src/game.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp" -o CMakeFiles/main-debug.dir/src/game.cpp.s
 
 CMakeFiles/main-debug.dir/src/utils.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/utils.cpp.o: ../src/utils.cpp
 CMakeFiles/main-debug.dir/src/utils.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main-debug.dir/src/utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/utils.cpp.o -MF CMakeFiles/main-debug.dir/src/utils.cpp.o.d -o CMakeFiles/main-debug.dir/src/utils.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main-debug.dir/src/utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/utils.cpp.o -MF CMakeFiles/main-debug.dir/src/utils.cpp.o.d -o CMakeFiles/main-debug.dir/src/utils.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp"
 
 CMakeFiles/main-debug.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp" > CMakeFiles/main-debug.dir/src/utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp" > CMakeFiles/main-debug.dir/src/utils.cpp.i
 
 CMakeFiles/main-debug.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp" -o CMakeFiles/main-debug.dir/src/utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp" -o CMakeFiles/main-debug.dir/src/utils.cpp.s
 
 CMakeFiles/main-debug.dir/src/scene.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/scene.cpp.o: ../src/scene.cpp
 CMakeFiles/main-debug.dir/src/scene.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main-debug.dir/src/scene.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/scene.cpp.o -MF CMakeFiles/main-debug.dir/src/scene.cpp.o.d -o CMakeFiles/main-debug.dir/src/scene.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main-debug.dir/src/scene.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/scene.cpp.o -MF CMakeFiles/main-debug.dir/src/scene.cpp.o.d -o CMakeFiles/main-debug.dir/src/scene.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/scene.cpp"
 
 CMakeFiles/main-debug.dir/src/scene.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/scene.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp" > CMakeFiles/main-debug.dir/src/scene.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/scene.cpp" > CMakeFiles/main-debug.dir/src/scene.cpp.i
 
 CMakeFiles/main-debug.dir/src/scene.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/scene.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp" -o CMakeFiles/main-debug.dir/src/scene.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/scene.cpp" -o CMakeFiles/main-debug.dir/src/scene.cpp.s
 
 CMakeFiles/main-debug.dir/src/stb_image.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/stb_image.cpp.o: ../src/stb_image.cpp
 CMakeFiles/main-debug.dir/src/stb_image.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main-debug.dir/src/stb_image.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/stb_image.cpp.o -MF CMakeFiles/main-debug.dir/src/stb_image.cpp.o.d -o CMakeFiles/main-debug.dir/src/stb_image.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main-debug.dir/src/stb_image.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/stb_image.cpp.o -MF CMakeFiles/main-debug.dir/src/stb_image.cpp.o.d -o CMakeFiles/main-debug.dir/src/stb_image.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/stb_image.cpp"
 
 CMakeFiles/main-debug.dir/src/stb_image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/stb_image.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp" > CMakeFiles/main-debug.dir/src/stb_image.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/stb_image.cpp" > CMakeFiles/main-debug.dir/src/stb_image.cpp.i
 
 CMakeFiles/main-debug.dir/src/stb_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/stb_image.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp" -o CMakeFiles/main-debug.dir/src/stb_image.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/stb_image.cpp" -o CMakeFiles/main-debug.dir/src/stb_image.cpp.s
 
 CMakeFiles/main-debug.dir/src/miniaudio.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/src/miniaudio.cpp.o: ../src/miniaudio.cpp
 CMakeFiles/main-debug.dir/src/miniaudio.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main-debug.dir/src/miniaudio.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/miniaudio.cpp.o -MF CMakeFiles/main-debug.dir/src/miniaudio.cpp.o.d -o CMakeFiles/main-debug.dir/src/miniaudio.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main-debug.dir/src/miniaudio.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/src/miniaudio.cpp.o -MF CMakeFiles/main-debug.dir/src/miniaudio.cpp.o.d -o CMakeFiles/main-debug.dir/src/miniaudio.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/miniaudio.cpp"
 
 CMakeFiles/main-debug.dir/src/miniaudio.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/src/miniaudio.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp" > CMakeFiles/main-debug.dir/src/miniaudio.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/miniaudio.cpp" > CMakeFiles/main-debug.dir/src/miniaudio.cpp.i
 
 CMakeFiles/main-debug.dir/src/miniaudio.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/src/miniaudio.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp" -o CMakeFiles/main-debug.dir/src/miniaudio.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/miniaudio.cpp" -o CMakeFiles/main-debug.dir/src/miniaudio.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o: _deps/imgui-src/imgui.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o: _deps/imgui-src/imgui_draw.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_draw.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_draw.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_draw.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_draw.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_draw.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o: _deps/imgui-src/imgui_tables.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_tables.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_tables.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_tables.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_tables.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_tables.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o: _deps/imgui-src/imgui_widgets.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_widgets.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_widgets.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/imgui_widgets.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/imgui_widgets.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/imgui_widgets.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o: _deps/imgui-src/backends/imgui_impl_glfw.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_glfw.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.cpp.s
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/main-debug.dir/flags.make
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o: _deps/imgui-src/backends/imgui_impl_opengl3.cpp
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/main-debug.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -MF CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp"
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp" > CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.i
 
 CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends/imgui_impl_opengl3.cpp" -o CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.s
 
 # Object files for target main-debug
 main__debug_OBJECTS = \
@@ -285,7 +285,7 @@ main-debug: CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_glfw.c
 main-debug: CMakeFiles/main-debug.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o
 main-debug: CMakeFiles/main-debug.dir/build.make
 main-debug: CMakeFiles/main-debug.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable main-debug"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable main-debug"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main-debug.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -297,6 +297,6 @@ CMakeFiles/main-debug.dir/clean:
 .PHONY : CMakeFiles/main-debug.dir/clean
 
 CMakeFiles/main-debug.dir/depend:
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles/main-debug.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles/main-debug.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/main-debug.dir/depend
 

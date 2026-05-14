@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot"
+CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build"
+CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test.dir/depend.make
@@ -72,58 +72,58 @@ include CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/app/test.cpp.o: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/app/test.cpp.o: ../app/test.cpp
 CMakeFiles/test.dir/app/test.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/app/test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/app/test.cpp.o -MF CMakeFiles/test.dir/app/test.cpp.o.d -o CMakeFiles/test.dir/app/test.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/app/test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/app/test.cpp.o -MF CMakeFiles/test.dir/app/test.cpp.o.d -o CMakeFiles/test.dir/app/test.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/test.cpp"
 
 CMakeFiles/test.dir/app/test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/app/test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp" > CMakeFiles/test.dir/app/test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/test.cpp" > CMakeFiles/test.dir/app/test.cpp.i
 
 CMakeFiles/test.dir/app/test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/app/test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp" -o CMakeFiles/test.dir/app/test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/test.cpp" -o CMakeFiles/test.dir/app/test.cpp.s
 
 CMakeFiles/test.dir/src/bot.cpp.o: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/bot.cpp.o: ../src/bot.cpp
 CMakeFiles/test.dir/src/bot.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/src/bot.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/bot.cpp.o -MF CMakeFiles/test.dir/src/bot.cpp.o.d -o CMakeFiles/test.dir/src/bot.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/src/bot.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/bot.cpp.o -MF CMakeFiles/test.dir/src/bot.cpp.o.d -o CMakeFiles/test.dir/src/bot.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp"
 
 CMakeFiles/test.dir/src/bot.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/bot.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp" > CMakeFiles/test.dir/src/bot.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp" > CMakeFiles/test.dir/src/bot.cpp.i
 
 CMakeFiles/test.dir/src/bot.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/bot.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp" -o CMakeFiles/test.dir/src/bot.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp" -o CMakeFiles/test.dir/src/bot.cpp.s
 
 CMakeFiles/test.dir/src/game.cpp.o: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/game.cpp.o: ../src/game.cpp
 CMakeFiles/test.dir/src/game.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test.dir/src/game.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/game.cpp.o -MF CMakeFiles/test.dir/src/game.cpp.o.d -o CMakeFiles/test.dir/src/game.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test.dir/src/game.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/game.cpp.o -MF CMakeFiles/test.dir/src/game.cpp.o.d -o CMakeFiles/test.dir/src/game.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp"
 
 CMakeFiles/test.dir/src/game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/game.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp" > CMakeFiles/test.dir/src/game.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp" > CMakeFiles/test.dir/src/game.cpp.i
 
 CMakeFiles/test.dir/src/game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/game.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp" -o CMakeFiles/test.dir/src/game.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp" -o CMakeFiles/test.dir/src/game.cpp.s
 
 CMakeFiles/test.dir/src/utils.cpp.o: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/utils.cpp.o: ../src/utils.cpp
 CMakeFiles/test.dir/src/utils.cpp.o: CMakeFiles/test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test.dir/src/utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/utils.cpp.o -MF CMakeFiles/test.dir/src/utils.cpp.o.d -o CMakeFiles/test.dir/src/utils.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test.dir/src/utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/test.dir/src/utils.cpp.o -MF CMakeFiles/test.dir/src/utils.cpp.o.d -o CMakeFiles/test.dir/src/utils.cpp.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp"
 
 CMakeFiles/test.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp" > CMakeFiles/test.dir/src/utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp" > CMakeFiles/test.dir/src/utils.cpp.i
 
 CMakeFiles/test.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp" -o CMakeFiles/test.dir/src/utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp" -o CMakeFiles/test.dir/src/utils.cpp.s
 
 # Object files for target test
 test_OBJECTS = \
@@ -141,7 +141,7 @@ test: CMakeFiles/test.dir/src/game.cpp.o
 test: CMakeFiles/test.dir/src/utils.cpp.o
 test: CMakeFiles/test.dir/build.make
 test: CMakeFiles/test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -153,6 +153,6 @@ CMakeFiles/test.dir/clean:
 .PHONY : CMakeFiles/test.dir/clean
 
 CMakeFiles/test.dir/depend:
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles/test.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles/test.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/test.dir/depend
 

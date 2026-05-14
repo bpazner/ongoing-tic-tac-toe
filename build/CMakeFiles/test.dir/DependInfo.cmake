@@ -8,10 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/app/test.cpp" "CMakeFiles/test.dir/app/test.cpp.o" "gcc" "CMakeFiles/test.dir/app/test.cpp.o.d"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp" "CMakeFiles/test.dir/src/bot.cpp.o" "gcc" "CMakeFiles/test.dir/src/bot.cpp.o.d"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp" "CMakeFiles/test.dir/src/game.cpp.o" "gcc" "CMakeFiles/test.dir/src/game.cpp.o.d"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp" "CMakeFiles/test.dir/src/utils.cpp.o" "gcc" "CMakeFiles/test.dir/src/utils.cpp.o.d"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/app/test.cpp" "CMakeFiles/test.dir/app/test.cpp.o" "gcc" "CMakeFiles/test.dir/app/test.cpp.o.d"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp" "CMakeFiles/test.dir/src/bot.cpp.o" "gcc" "CMakeFiles/test.dir/src/bot.cpp.o.d"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp" "CMakeFiles/test.dir/src/game.cpp.o" "gcc" "CMakeFiles/test.dir/src/game.cpp.o.d"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp" "CMakeFiles/test.dir/src/utils.cpp.o" "gcc" "CMakeFiles/test.dir/src/utils.cpp.o.d"
   )
 
 # Targets to which this target links.

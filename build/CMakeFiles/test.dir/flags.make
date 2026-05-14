@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include"
+CXX_INCLUDES = -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/include"
 
 CXX_FLAGS = -O0 -g -std=gnu++20
 

@@ -1,8 +1,8 @@
 CMakeFiles/main.dir/src/bot.cpp.o: \
- /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ Optimized\ Bot/src/bot.cpp \
+ /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ (ImGui)/src/bot.cpp \
  /usr/include/stdc-predef.h \
- /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ Optimized\ Bot/include/bot.hpp \
- /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ Optimized\ Bot/include/utils.hpp \
+ /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ (ImGui)/include/bot.hpp \
+ /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ (ImGui)/include/utils.hpp \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
  /usr/include/c++/11/type_traits \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \

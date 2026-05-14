@@ -1,7 +1,7 @@
 CMakeFiles/main.dir/src/stb_image.cpp.o: \
- /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ Optimized\ Bot/src/stb_image.cpp \
+ /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ (ImGui)/src/stb_image.cpp \
  /usr/include/stdc-predef.h \
- /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ Optimized\ Bot/build/_deps/stb-src/stb_image.h \
+ /home/ben/desktop/Personal/Projects/Ongoing\ Tic-Tac-Toe\ (ImGui)/build/_deps/stb-src/stb_image.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

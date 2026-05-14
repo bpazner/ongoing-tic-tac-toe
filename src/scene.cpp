@@ -6,7 +6,7 @@
 #include <future>
 
 // Plays click sound and returns true if the button was clicked
-static constexpr const char *CLICK_SOUND = "../assets/audio/button_click.mp3";
+static constexpr const char *CLICK_SOUND = "../assets/audio/button.mp3";
 static bool sound_button(ma_engine *audio, const char *label,
                          const ImVec2 &size = {0, 0}) {
   bool clicked = ImGui::Button(label, size);
@@ -14,6 +14,16 @@ static bool sound_button(ma_engine *audio, const char *label,
     ma_engine_play_sound(audio, CLICK_SOUND, nullptr);
   }
   return clicked;
+}
+
+static constexpr const char *SLIDER_SOUND = "../assets/audio/slider.mp3";
+static bool sound_slider(ma_engine *audio, const char *label, int *v, int v_min,
+                         int v_max) {
+  bool changed = ImGui::SliderInt(label, v, v_min, v_max);
+  if (changed && audio) {
+    ma_engine_play_sound(audio, SLIDER_SOUND, nullptr);
+  }
+  return changed;
 }
 
 //////////////////////////////////////////////////////////////
@@ -157,8 +167,8 @@ void MenuScene::make_dimension_slider(const ImVec2 &display_size,
   ImGui::Text("Board Dimension");
   ImGui::SetCursorPosX(dim_slider_x);
   ImGui::SetNextItemWidth(dim_slider_w);
-  ImGui::SliderInt("##board_dimension", &board_dimension_, MIN_BOARD_DIMENSION,
-                   MAX_BOARD_DIMENSION);
+  sound_slider(audio_, "##board_dimension", &board_dimension_,
+               MIN_BOARD_DIMENSION, MAX_BOARD_DIMENSION);
 }
 
 void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
@@ -175,7 +185,7 @@ void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
   ImGui::Text("Target In-a-row");
   ImGui::SetCursorPosX(target_slider_x);
   ImGui::SetNextItemWidth(target_slider_w);
-  ImGui::SliderInt("##in_a_row", &in_a_row_, MIN_TARGET, board_dimension_);
+  sound_slider(audio_, "##in_a_row", &in_a_row_, MIN_TARGET, board_dimension_);
 }
 
 void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
@@ -190,7 +200,7 @@ void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
   ImGui::SetNextItemWidth(slider_w);
 
   // Get difficulty and set depth
-  ImGui::SliderInt("##bot_difficulty", &difficulty_, 1, 5);
+  sound_slider(audio_, "##bot_difficulty", &difficulty_, 1, 5);
   auto d = std::round(3 * difficulty_ /
                       std::log(1.0 * board_dimension_ * board_dimension_));
   if (d != depth_) {
@@ -335,6 +345,14 @@ static void render_label_colored(const std::string &label, float x, float y) {
 void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {
   float label_y = display_size.y * 0.1f;
   constexpr float score_scale = 2.0f;
+
+  // Centered, above the game label, "Target - <in_a_row> in a row"
+  std::string target_label =
+      "Target - " + std::to_string(game_.get_in_a_row()) + " in a row";
+  float target_label_w = ImGui::CalcTextSize(target_label.c_str()).x;
+  ImGui::SetWindowFontScale(1.0f);
+  render_label_colored(target_label, (display_size.x - target_label_w) / 2,
+                       label_y - display_size.y * 0.05f);
 
   // X score on the left, scaled up
   ImGui::SetWindowFontScale(score_scale);

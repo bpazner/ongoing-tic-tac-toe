@@ -7,6 +7,7 @@
 
 #include <GLFW/glfw3.h>
 #include <algorithm>
+#include <cstdio>
 #include <random>
 
 // UI configuration
@@ -23,32 +24,42 @@ constexpr const char *MUSIC_ICON_PATH = "../assets/ui/images/music_icon.png";
 // Background bossa nova music
 static constexpr const char *BGM_PATH =
     "../assets/audio/bossa_nova_background.mp3";
-static void load_bgm(ma_engine *audio, ma_sound *bgm) {
-  ma_sound_init_from_file(audio, BGM_PATH, 0, nullptr, nullptr, bgm);
+static bool load_bgm(ma_engine *audio, ma_sound *bgm) {
+  if (ma_sound_init_from_file(audio, BGM_PATH, 0, nullptr, nullptr, bgm) !=
+      MA_SUCCESS) {
+    fprintf(stderr, "Failed to load BGM: %s\n", BGM_PATH);
+    return false;
+  }
   ma_sound_set_looping(bgm, MA_TRUE);
   ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
   ma_sound_start(bgm);
+  return true;
 }
 
 static GLuint load_texture(const char *path) {
   int w, h, channels;
   unsigned char *data = stbi_load(path, &w, &h, &channels, 4);
   GLuint tex = 0;
-  if (data) {
-    glGenTextures(1, &tex);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE,
-                 data);
-    stbi_image_free(data);
+  if (!data) {
+    fprintf(stderr, "Failed to load texture: %s\n", path);
+    return 0;
   }
+  glGenTextures(1, &tex);
+  glBindTexture(GL_TEXTURE_2D, tex);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+               data);
+  stbi_image_free(data);
   return tex;
 }
 
 int main() {
   // Init GLFW
-  glfwInit();
+  if (!glfwInit()) {
+    fprintf(stderr, "Failed to initialize GLFW\n");
+    return -1;
+  }
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -56,10 +67,26 @@ int main() {
 
   // Create window hidden
   GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+  if (!monitor) {
+    fprintf(stderr, "Failed to get primary monitor\n");
+    glfwTerminate();
+    return -1;
+  }
   const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+  if (!mode) {
+    fprintf(stderr, "Failed to get video mode\n");
+    glfwTerminate();
+    return -1;
+  }
   int win_w = (int)(mode->width * WINDOWED_FACTOR);
   int win_h = (int)(mode->height * WINDOWED_FACTOR);
   GLFWwindow *window = glfwCreateWindow(win_w, win_h, TITLE, nullptr, nullptr);
+  if (!window) {
+    fprintf(stderr,
+            "Failed to create GLFW window (OpenGL 3.3 not supported?)\n");
+    glfwTerminate();
+    return -1;
+  }
 
   // Center and show window
   int mx, my;
@@ -81,9 +108,24 @@ int main() {
   font_cfg.OversampleH = 1;
   font_cfg.OversampleV = 1;
   font_cfg.PixelSnapH = true;
-  io.Fonts->AddFontFromFileTTF(FONT_PATH, BASE_FONT_SIZE, &font_cfg);
-  ImGui_ImplGlfw_InitForOpenGL(window, true);
-  ImGui_ImplOpenGL3_Init("#version 330");
+  if (!io.Fonts->AddFontFromFileTTF(FONT_PATH, BASE_FONT_SIZE, &font_cfg)) {
+    fprintf(stderr, "Failed to load font: %s\n", FONT_PATH);
+  }
+  if (!ImGui_ImplGlfw_InitForOpenGL(window, true)) {
+    fprintf(stderr, "Failed to initialize ImGui GLFW backend\n");
+    ImGui::DestroyContext();
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return -1;
+  }
+  if (!ImGui_ImplOpenGL3_Init("#version 330")) {
+    fprintf(stderr, "Failed to initialize ImGui OpenGL3 backend\n");
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return -1;
+  }
 
   // Load icon images
   GLuint x_tex = load_texture(X_ICON_PATH);
@@ -93,14 +135,19 @@ int main() {
   // Init audio engine and start background music
   ma_engine audio;
   bool audio_ok = ma_engine_init(nullptr, &audio) == MA_SUCCESS;
+  if (!audio_ok) {
+    fprintf(stderr,
+            "Failed to initialize audio engine, continuing without audio\n");
+  }
   ma_sound bgm;
+  bool bgm_ok = false;
   if (audio_ok) {
-    // load_bgm(&audio, &bgm);
+    bgm_ok = load_bgm(&audio, &bgm);
   }
 
   // Start on menu scene
   std::unique_ptr<Scene> scene = std::make_unique<MenuScene>(
-      audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+      audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
 
   while (!glfwWindowShouldClose(window)) {
     // Handle input events
@@ -128,7 +175,7 @@ int main() {
       if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
         scene = std::make_unique<PVPScene>(
             menu->get_board_dimension(), menu->get_in_a_row(), x_tex, o_tex,
-            audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+            audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
       } else {
         bool player_x;
         if (menu->get_player_side() == PlayerSide::RANDOM) {
@@ -140,11 +187,11 @@ int main() {
         scene = std::make_unique<PVBScene>(
             menu->get_board_dimension(), menu->get_in_a_row(),
             menu->get_depth(), player_x, false, x_tex, o_tex,
-            audio_ok ? &audio : nullptr, audio_ok ? &bgm : nullptr, music_tex);
+            audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
       }
     } else if (next == SceneType::MENU) {
       scene = std::make_unique<MenuScene>(audio_ok ? &audio : nullptr,
-                                          audio_ok ? &bgm : nullptr, music_tex);
+                                          bgm_ok ? &bgm : nullptr, music_tex);
     } else if (next == SceneType::QUIT) {
       glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
@@ -159,8 +206,10 @@ int main() {
   }
 
   // Cleanup
-  if (audio_ok) {
+  if (bgm_ok) {
     ma_sound_uninit(&bgm);
+  }
+  if (audio_ok) {
     ma_engine_uninit(&audio);
   }
   glDeleteTextures(1, &x_tex);

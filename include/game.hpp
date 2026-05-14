@@ -15,6 +15,7 @@ public:
   void reset();
 
   unsigned get_board_dimension() const { return board_dimension_; }
+  unsigned get_in_a_row() const { return in_a_row_; }
   std::vector<char> get_board() const { return board_; }
   bool get_x_turn() const { return x_turn_; }
   int64_t get_x_score() const { return x_score_; }

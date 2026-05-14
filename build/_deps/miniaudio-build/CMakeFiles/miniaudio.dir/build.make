@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot"
+CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build"
+CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build"
 
 # Include any dependencies generated for this target.
 include _deps/miniaudio-build/CMakeFiles/miniaudio.dir/depend.make
@@ -72,16 +72,16 @@ include _deps/miniaudio-build/CMakeFiles/miniaudio.dir/flags.make
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o: _deps/miniaudio-build/CMakeFiles/miniaudio.dir/flags.make
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o: _deps/miniaudio-src/miniaudio.c
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o: _deps/miniaudio-build/CMakeFiles/miniaudio.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o"
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o -MF CMakeFiles/miniaudio.dir/miniaudio.c.o.d -o CMakeFiles/miniaudio.dir/miniaudio.c.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src/miniaudio.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o"
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o -MF CMakeFiles/miniaudio.dir/miniaudio.c.o.d -o CMakeFiles/miniaudio.dir/miniaudio.c.o -c "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src/miniaudio.c"
 
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/miniaudio.dir/miniaudio.c.i"
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src/miniaudio.c" > CMakeFiles/miniaudio.dir/miniaudio.c.i
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src/miniaudio.c" > CMakeFiles/miniaudio.dir/miniaudio.c.i
 
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/miniaudio.dir/miniaudio.c.s"
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src/miniaudio.c" -o CMakeFiles/miniaudio.dir/miniaudio.c.s
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src/miniaudio.c" -o CMakeFiles/miniaudio.dir/miniaudio.c.s
 
 # Object files for target miniaudio
 miniaudio_OBJECTS = \
@@ -93,19 +93,19 @@ miniaudio_EXTERNAL_OBJECTS =
 _deps/miniaudio-build/libminiaudio.a: _deps/miniaudio-build/CMakeFiles/miniaudio.dir/miniaudio.c.o
 _deps/miniaudio-build/libminiaudio.a: _deps/miniaudio-build/CMakeFiles/miniaudio.dir/build.make
 _deps/miniaudio-build/libminiaudio.a: _deps/miniaudio-build/CMakeFiles/miniaudio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libminiaudio.a"
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -P CMakeFiles/miniaudio.dir/cmake_clean_target.cmake
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/miniaudio.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libminiaudio.a"
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -P CMakeFiles/miniaudio.dir/cmake_clean_target.cmake
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/miniaudio.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/build: _deps/miniaudio-build/libminiaudio.a
 .PHONY : _deps/miniaudio-build/CMakeFiles/miniaudio.dir/build
 
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/clean:
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -P CMakeFiles/miniaudio.dir/cmake_clean.cmake
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" && $(CMAKE_COMMAND) -P CMakeFiles/miniaudio.dir/cmake_clean.cmake
 .PHONY : _deps/miniaudio-build/CMakeFiles/miniaudio.dir/clean
 
 _deps/miniaudio-build/CMakeFiles/miniaudio.dir/depend:
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-build/CMakeFiles/miniaudio.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-build/CMakeFiles/miniaudio.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : _deps/miniaudio-build/CMakeFiles/miniaudio.dir/depend
 

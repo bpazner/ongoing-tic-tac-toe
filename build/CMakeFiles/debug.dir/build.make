@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot"
+CMAKE_SOURCE_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build"
+CMAKE_BINARY_DIR = "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build"
 
 # Utility rule file for debug.
 
@@ -82,6 +82,6 @@ CMakeFiles/debug.dir/clean:
 .PHONY : CMakeFiles/debug.dir/clean
 
 CMakeFiles/debug.dir/depend:
-	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles/debug.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build" "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles/debug.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/debug.dir/depend
 

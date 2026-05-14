@@ -3,16 +3,16 @@
 cmake_policy(SET CMP0009 NEW)
 
 # SRC_FILES at CMakeLists.txt:34 (file)
-file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/*.cpp")
+file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/*.cpp")
 set(OLD_GLOB
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/bot.cpp"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/game.cpp"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/miniaudio.cpp"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/scene.cpp"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/stb_image.cpp"
-  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/src/utils.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/bot.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/game.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/miniaudio.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/scene.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/stb_image.cpp"
+  "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/src/utils.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
-  file(TOUCH_NOCREATE "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/CMakeFiles/cmake.verify_globs")
+  file(TOUCH_NOCREATE "/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/CMakeFiles/cmake.verify_globs")
 endif()

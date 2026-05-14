@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/include" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/imgui-src/backends" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/stb-src" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe Optimized Bot/build/_deps/miniaudio-src"
+CXX_INCLUDES = -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/include" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/imgui-src/backends" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/stb-src" -I"/home/ben/desktop/Personal/Projects/Ongoing Tic-Tac-Toe (ImGui)/build/_deps/miniaudio-src"
 
 CXX_FLAGS = -O0 -g -std=gnu++20
 
