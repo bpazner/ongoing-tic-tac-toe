@@ -201,12 +201,8 @@ void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
 
   // Get difficulty and set depth
   sound_slider(audio_, "##bot_difficulty", &difficulty_, 1, 5);
-  auto d = std::round(3 * difficulty_ /
+  depth_ = std::round(3 * difficulty_ /
                       std::log(1.0 * board_dimension_ * board_dimension_));
-  if (d != depth_) {
-    std::cout << "New depth: " << d << "\n";
-    depth_ = d;
-  }
 }
 
 void MenuScene::make_player_side_buttons(const ImVec2 &display_size,

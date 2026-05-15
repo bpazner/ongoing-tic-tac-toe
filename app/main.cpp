@@ -93,9 +93,9 @@ int main() {
   glfwGetMonitorPos(monitor, &mx, &my);
   glfwSetWindowPos(window, mx + (mode->width - win_w) / 2,
                    my + (mode->height - win_h) / 2);
-  glfwShowWindow(window);
   glfwMakeContextCurrent(window);
   glfwSwapInterval(1);
+  glfwShowWindow(window);
 
   // Init ImGui
   IMGUI_CHECKVERSION();
@@ -138,7 +138,7 @@ int main() {
   if (!audio_ok) {
     fprintf(stderr,
             "Failed to initialize audio engine, continuing without audio\n");
-  }
+  } 
   ma_sound bgm;
   bool bgm_ok = false;
   if (audio_ok) {

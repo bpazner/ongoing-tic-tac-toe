@@ -13,7 +13,13 @@ A desktop tic-tac-toe game with configurable board size and win condition.
 - Windows with [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install)
 - Inside WSL, install dependencies:
   ```bash
+  sudo apt update
   sudo apt install cmake g++ libglfw3-dev libgl1-mesa-dev git
+  ```
+- For audio, install [PipeWire](https://pipewire.org/) (if not already present):
+  ```bash
+  sudo apt install pipewire pipewire-pulse wireplumber
+  systemctl --user start pipewire pipewire-pulse wireplumber
   ```
 
 ### Running
