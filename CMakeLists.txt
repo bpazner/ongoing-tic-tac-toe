@@ -62,7 +62,7 @@ set(UI_INCLUDES
 #######################################################################
 
 add_executable(main EXCLUDE_FROM_ALL
-    main.cpp
+    app/main.cpp
     ${SRC_FILES}
     ${UI_SRC_FILES}
     ${IMGUI_SOURCES}
@@ -72,7 +72,7 @@ target_link_libraries(main PRIVATE glfw GL pthread dl)
 target_compile_options(main PRIVATE -O3)
 
 add_executable(main-debug EXCLUDE_FROM_ALL
-    main.cpp
+    app/main.cpp
     ${SRC_FILES}
     ${UI_SRC_FILES}
     ${IMGUI_SOURCES}

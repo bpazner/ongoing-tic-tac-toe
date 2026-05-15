@@ -59,8 +59,8 @@ private:
 // subclassed by PVPScene and PVBScene
 class GameScene : public Scene {
 public:
-  GameScene(unsigned board_dimension, unsigned in_a_row, AudioContext *audio_ctx,
-            TextureContext *tex_ctx);
+  GameScene(unsigned board_dimension, unsigned in_a_row,
+            AudioContext *audio_ctx, TextureContext *tex_ctx);
   SceneType draw() final;
 
 protected:

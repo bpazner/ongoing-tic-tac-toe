@@ -6,8 +6,8 @@
 #include <future>
 
 static void play_sfx(ma_sound *sound, float volume) {
-  if (!sound) { 
-    return; 
+  if (!sound) {
+    return;
   }
   ma_sound_seek_to_pcm_frame(sound, 0);
   ma_sound_set_volume(sound, volume * BASE_SFX_VOLUME / 0.5f);
@@ -54,7 +54,8 @@ void Scene::make_volume_control(float min_dim) {
 
   // BGM - music icon & slider
   ImGui::SetCursorPos({pad, pad});
-  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->music_tex, {icon_size, icon_size});
+  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->music_tex,
+               {icon_size, icon_size});
   ImGui::SetCursorPos({slider_x, pad + center_y_off});
   ImGui::SetNextItemWidth(slider_w);
   if (audio_ctx_ &&
@@ -67,7 +68,8 @@ void Scene::make_volume_control(float min_dim) {
 
   // SFX - icon & slider
   ImGui::SetCursorPos({pad, pad + row_h});
-  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->sfx_tex, {icon_size, icon_size});
+  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->sfx_tex,
+               {icon_size, icon_size});
   ImGui::SetCursorPos({slider_x, pad + row_h + center_y_off});
   ImGui::SetNextItemWidth(slider_w);
   if (audio_ctx_) {
@@ -122,11 +124,13 @@ SceneType MenuScene::draw() {
   SceneType next_scene = SceneType::NONE;
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y_px});
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play",
+                   btn_size)) {
     next_scene = SceneType::GAME;
   }
   ImGui::SetCursorPos({btn_x, btn_y_px});
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Quit", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Quit",
+                   btn_size)) {
     next_scene = SceneType::QUIT;
   }
 
@@ -160,7 +164,8 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs player button
   ImGui::SetCursorPos({mode_x, mode_y});
   highlight(pvp);
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Player", mode_btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume,
+                   "Player vs Player", mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_PLAYER;
   }
   pop(pvp);
@@ -168,7 +173,8 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs bot button
   ImGui::SetCursorPos({mode_x + mode_btn_size.x + mode_gap, mode_y});
   highlight(pvb);
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Bot", mode_btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Bot",
+                   mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_BOT;
   }
   pop(pvb);
@@ -203,7 +209,8 @@ void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
   ImGui::Text("Target In-a-row");
   ImGui::SetCursorPosX(target_slider_x);
   ImGui::SetNextItemWidth(target_slider_w);
-  sound_slider(audio_ctx_, "##in_a_row", &in_a_row_, MIN_TARGET, board_dimension_);
+  sound_slider(audio_ctx_, "##in_a_row", &in_a_row_, MIN_TARGET,
+               board_dimension_);
 }
 
 void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
@@ -271,7 +278,8 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // Random button
   ImGui::SetCursorPos({start_x + (btn_size.x + gap) * 2, y});
   highlight(pr);
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Random", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Random",
+                   btn_size)) {
     player_side_ = PlayerSide::RANDOM;
   }
   pop(pr);
@@ -403,13 +411,15 @@ SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
   float btn_y = display_size.y * 0.85f;
 
   ImGui::SetCursorPos({btn_x, btn_y});
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play Again", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play Again",
+                   btn_size)) {
     on_reset();
     game_.reset();
   }
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y});
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Return to Menu", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Return to Menu",
+                   btn_size)) {
     return SceneType::MENU;
   }
 
@@ -442,9 +452,9 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
           play_sfx(audio_ctx_->tile, audio_ctx_->sfx_volume);
         }
       } else {
-        ImTextureID tex = (ImTextureID)(intptr_t)(cell == PLAYER_X
-                                                       ? tex_ctx_->x_tex
-                                                       : tex_ctx_->o_tex);
+        ImTextureID tex =
+            (ImTextureID)(intptr_t)(cell == PLAYER_X ? tex_ctx_->x_tex
+                                                     : tex_ctx_->o_tex);
         ImGui::ImageButton("img", tex, {img_size, img_size});
       }
       ImGui::PopID();
@@ -482,8 +492,8 @@ std::string PVPScene::get_game_label() const {
 PVBScene::PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
                    bool player_x, bool iddfs, AudioContext *audio_ctx,
                    TextureContext *tex_ctx)
-    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx),
-      depth_(depth), player_x_(player_x) {
+    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx), depth_(depth),
+      player_x_(player_x) {
   bot_ = std::make_unique<Bot>(board_dimension, in_a_row, depth, iddfs);
 }
 

@@ -38,8 +38,11 @@ static bool load_sound(ma_engine *engine, const char *path, unsigned flags,
 
 static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *button,
                        ma_sound *slider, ma_sound *tile, AudioContext &ctx) {
-  if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
-    fprintf(stderr, "Failed to initialize audio engine, continuing without audio\n");
+  ma_engine_config engine_cfg = ma_engine_config_init();
+  engine_cfg.periodSizeInMilliseconds = 10;
+  if (ma_engine_init(&engine_cfg, engine) != MA_SUCCESS) {
+    fprintf(stderr,
+            "Failed to initialize audio engine, continuing without audio\n");
     return;
   }
   ctx.engine = engine;
@@ -154,9 +157,9 @@ int main() {
   // Load icon textures
   TextureContext tex_ctx;
   tex_ctx.music_tex = load_texture(MUSIC_ICON_PATH);
-  tex_ctx.sfx_tex   = load_texture(SFX_ICON_PATH);
-  tex_ctx.x_tex     = load_texture(X_ICON_PATH);
-  tex_ctx.o_tex     = load_texture(O_ICON_PATH);
+  tex_ctx.sfx_tex = load_texture(SFX_ICON_PATH);
+  tex_ctx.x_tex = load_texture(X_ICON_PATH);
+  tex_ctx.o_tex = load_texture(O_ICON_PATH);
 
   // Init audio engine and sounds
   ma_engine audio;
@@ -203,10 +206,9 @@ int main() {
         } else {
           player_x = menu->get_player_side() == PlayerSide::X;
         }
-        scene = std::make_unique<PVBScene>(menu->get_board_dimension(),
-                                           menu->get_in_a_row(),
-                                           menu->get_depth(), player_x, false,
-                                           &audio_ctx, &tex_ctx);
+        scene = std::make_unique<PVBScene>(
+            menu->get_board_dimension(), menu->get_in_a_row(),
+            menu->get_depth(), player_x, false, &audio_ctx, &tex_ctx);
       }
     } else if (next == SceneType::MENU) {
       scene = std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
@@ -224,11 +226,21 @@ int main() {
   }
 
   // Cleanup
-  if (audio_ctx.tile)   { ma_sound_uninit(&tile_snd); }
-  if (audio_ctx.button) { ma_sound_uninit(&button_snd); }
-  if (audio_ctx.slider) { ma_sound_uninit(&slider_snd); }
-  if (audio_ctx.bgm)    { ma_sound_uninit(&bgm); }
-  if (audio_ctx.engine) { ma_engine_uninit(&audio); }
+  if (audio_ctx.tile) {
+    ma_sound_uninit(&tile_snd);
+  }
+  if (audio_ctx.button) {
+    ma_sound_uninit(&button_snd);
+  }
+  if (audio_ctx.slider) {
+    ma_sound_uninit(&slider_snd);
+  }
+  if (audio_ctx.bgm) {
+    ma_sound_uninit(&bgm);
+  }
+  if (audio_ctx.engine) {
+    ma_engine_uninit(&audio);
+  }
   glDeleteTextures(1, &tex_ctx.music_tex);
   glDeleteTextures(1, &tex_ctx.sfx_tex);
   glDeleteTextures(1, &tex_ctx.x_tex);
