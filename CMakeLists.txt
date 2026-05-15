@@ -62,7 +62,7 @@ set(UI_INCLUDES
 #######################################################################
 
 add_executable(main EXCLUDE_FROM_ALL
-    app/main.cpp
+    main.cpp
     ${SRC_FILES}
     ${UI_SRC_FILES}
     ${IMGUI_SOURCES}
@@ -72,7 +72,7 @@ target_link_libraries(main PRIVATE glfw GL pthread dl)
 target_compile_options(main PRIVATE -O3)
 
 add_executable(main-debug EXCLUDE_FROM_ALL
-    app/main.cpp
+    main.cpp
     ${SRC_FILES}
     ${UI_SRC_FILES}
     ${IMGUI_SOURCES}
@@ -80,17 +80,6 @@ add_executable(main-debug EXCLUDE_FROM_ALL
 target_include_directories(main-debug PRIVATE ${UI_INCLUDES})
 target_link_libraries(main-debug PRIVATE glfw GL pthread dl)
 target_compile_options(main-debug PRIVATE -O0 -g)
-
-#######################################################################
-## TEST
-#######################################################################
-
-add_executable(test EXCLUDE_FROM_ALL
-    app/test.cpp
-    ${SRC_FILES}
-)
-target_include_directories(test PRIVATE ${COMMON_INCLUDES})
-target_compile_options(test PRIVATE -O0 -g)
 
 #######################################################################
 ## TARGETS
@@ -105,5 +94,5 @@ add_custom_target(release
 )
 
 add_custom_target(debug
-    DEPENDS main-debug test
+    DEPENDS main-debug
 )
