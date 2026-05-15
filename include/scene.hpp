@@ -8,9 +8,6 @@
 #include <future>
 #include <memory>
 
-struct ma_engine;
-struct ma_sound;
-
 enum class SceneType { NONE, MENU, GAME, QUIT };
 enum class Gamemode { PLAYER_VS_PLAYER, PLAYER_VS_BOT };
 enum class PlayerSide { X, O, RANDOM };
@@ -18,25 +15,23 @@ enum class PlayerSide { X, O, RANDOM };
 // Base class for all scenes, returns the next SceneType each frame
 class Scene {
 public:
-  Scene(ma_engine *audio, ma_sound *bgm, unsigned int music_tex)
-      : audio_(audio), bgm_(bgm), music_tex_(music_tex) {}
+  Scene(AudioContext *audio_ctx, TextureContext *tex_ctx)
+      : audio_ctx_(audio_ctx), tex_ctx_(tex_ctx) {}
   virtual SceneType draw() = 0;
   virtual ~Scene() = default;
 
 protected:
   void make_volume_control(float min_dim);
 
-  ma_engine *audio_;
-  ma_sound *bgm_;
-  unsigned int music_tex_;
-  float volume_ = 0.5f;
+  AudioContext *audio_ctx_;
+  TextureContext *tex_ctx_;
 };
 
 // Game mode selection, board configuration, and difficulty settings
 class MenuScene : public Scene {
 public:
-  MenuScene(ma_engine *audio, ma_sound *bgm, unsigned int music_tex)
-      : Scene(audio, bgm, music_tex) {}
+  MenuScene(AudioContext *audio_ctx, TextureContext *tex_ctx)
+      : Scene(audio_ctx, tex_ctx) {}
   SceneType draw() override;
 
   Gamemode get_gamemode() const { return gamemode_; }
@@ -64,23 +59,17 @@ private:
 // subclassed by PVPScene and PVBScene
 class GameScene : public Scene {
 public:
-  GameScene(unsigned board_dimension, unsigned in_a_row, unsigned int x_tex,
-            unsigned int o_tex, ma_engine *audio, ma_sound *bgm,
-            unsigned int music_tex);
+  GameScene(unsigned board_dimension, unsigned in_a_row, AudioContext *audio_ctx,
+            TextureContext *tex_ctx);
   SceneType draw() final;
 
 protected:
-  virtual void pre_draw() {} // Called before rendering each frame
-  virtual void on_reset() {} // Called before game_.reset()
-  virtual std::string get_game_label() const {
-    return "";
-  } // Center status label text
-  virtual bool can_move() const {
-    return true;
-  } // Whether the player can click a cell
+  virtual void pre_draw() {}
+  virtual void on_reset() {}
+  virtual std::string get_game_label() const { return ""; }
+  virtual bool can_move() const { return true; }
 
   Game game_;
-  unsigned int x_tex_, o_tex_;
 
 private:
   void make_header_labels(const ImVec2 &display_size, float min_dim);
@@ -91,9 +80,8 @@ private:
 // Two-player local game
 class PVPScene : public GameScene {
 public:
-  PVPScene(unsigned board_dimension, unsigned in_a_row, unsigned int x_tex,
-           unsigned int o_tex, ma_engine *audio, ma_sound *bgm,
-           unsigned int music_tex);
+  PVPScene(unsigned board_dimension, unsigned in_a_row, AudioContext *audio_ctx,
+           TextureContext *tex_ctx);
 
 protected:
   std::string get_game_label() const override;
@@ -106,8 +94,8 @@ protected:
 class PVBScene : public GameScene {
 public:
   PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
-           bool player_x, bool iddfs, unsigned int x_tex, unsigned int o_tex,
-           ma_engine *audio, ma_sound *bgm, unsigned int music_tex);
+           bool player_x, bool iddfs, AudioContext *audio_ctx,
+           TextureContext *tex_ctx);
 
 protected:
   void pre_draw() override;

@@ -10,6 +10,26 @@
 
 // UI/Audio
 constexpr float BASE_BGM_VOLUME = 0.25f;
+constexpr float BASE_SFX_VOLUME = 0.5f;
+
+struct ma_engine;
+struct ma_sound;
+
+struct AudioContext {
+  ma_engine *engine = nullptr;
+  ma_sound *bgm = nullptr;
+  ma_sound *click = nullptr;
+  ma_sound *slider = nullptr;
+  float bgm_volume = 0.5f;
+  float sfx_volume = 0.5f;
+};
+
+struct TextureContext {
+  unsigned int music_tex = 0;
+  unsigned int sfx_tex = 0;
+  unsigned int x_tex = 0;
+  unsigned int o_tex = 0;
+};
 
 // Console colors
 #define RESET "\033[0m"

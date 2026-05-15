@@ -5,23 +5,29 @@
 #include <chrono>
 #include <future>
 
-// Plays click sound and returns true if the button was clicked
-static constexpr const char *CLICK_SOUND = "../assets/audio/button.mp3";
-static bool sound_button(ma_engine *audio, const char *label,
+static void play_sfx(ma_sound *sound, float volume) {
+  if (!sound) { 
+    return; 
+  }
+  ma_sound_seek_to_pcm_frame(sound, 0);
+  ma_sound_set_volume(sound, volume * BASE_SFX_VOLUME / 0.5f);
+  ma_sound_start(sound);
+}
+
+static bool sound_button(AudioContext *ctx, const char *label,
                          const ImVec2 &size = {0, 0}) {
   bool clicked = ImGui::Button(label, size);
-  if (clicked && audio) {
-    ma_engine_play_sound(audio, CLICK_SOUND, nullptr);
+  if (clicked && ctx) {
+    play_sfx(ctx->click, ctx->sfx_volume);
   }
   return clicked;
 }
 
-static constexpr const char *SLIDER_SOUND = "../assets/audio/slider.mp3";
-static bool sound_slider(ma_engine *audio, const char *label, int *v, int v_min,
-                         int v_max) {
+static bool sound_slider(AudioContext *ctx, const char *label, int *v,
+                         int v_min, int v_max) {
   bool changed = ImGui::SliderInt(label, v, v_min, v_max);
-  if (changed && audio) {
-    ma_engine_play_sound(audio, SLIDER_SOUND, nullptr);
+  if (changed && ctx) {
+    play_sfx(ctx->slider, ctx->sfx_volume);
   }
   return changed;
 }
@@ -31,31 +37,43 @@ static bool sound_slider(ma_engine *audio, const char *label, int *v, int v_min,
 //////////////////////////////////////////////////////////////
 
 void Scene::make_volume_control(float min_dim) {
+  // Element geometry
   float pad = min_dim * 0.02f;
   float icon_size = min_dim * 0.04f;
   float slider_w = min_dim * 0.2f;
+  float row_h = icon_size + pad * 0.5f;
+  float slider_x = 2 * pad + icon_size;
+  float center_y_off = (icon_size - ImGui::GetFrameHeight()) / 2;
 
-  // Music icon in top left
-  ImGui::SetCursorPos({pad, pad});
-  ImGui::Image((ImTextureID)(intptr_t)music_tex_, {icon_size, icon_size});
-
-  // Set slider's knob width
+  // Style sliders
   ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, slider_w / 16);
-
-  // Slider vertically centered with icon
-  ImGui::SameLine(0, min_dim * 0.01f);
-  ImGui::SetCursorPos(
-      {2 * pad + icon_size, pad + (icon_size - ImGui::GetFrameHeight()) / 2});
-
-  // White knob on dark track, no value label
   ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1, 1, 1, 1));
   ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.8f, 0.8f, 0.8f, 1));
   ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.3f, 0.3f, 0.3f, 1));
   ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.4f, 0.4f, 0.4f, 1));
+
+  // BGM - music icon & slider
+  ImGui::SetCursorPos({pad, pad});
+  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->music_tex, {icon_size, icon_size});
+  ImGui::SetCursorPos({slider_x, pad + center_y_off});
   ImGui::SetNextItemWidth(slider_w);
-  if (ImGui::SliderFloat("##volume", &volume_, 0.0f, 1.0f, "") && bgm_) {
-    ma_sound_set_volume(bgm_, volume_ * BASE_BGM_VOLUME / 0.5f);
+  if (audio_ctx_ &&
+      ImGui::SliderFloat("##bgm_volume", &audio_ctx_->bgm_volume, 0.0f, 1.0f,
+                         "") &&
+      audio_ctx_->bgm) {
+    ma_sound_set_volume(audio_ctx_->bgm,
+                        audio_ctx_->bgm_volume * BASE_BGM_VOLUME / 0.5f);
   }
+
+  // SFX - icon & slider
+  ImGui::SetCursorPos({pad, pad + row_h});
+  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->sfx_tex, {icon_size, icon_size});
+  ImGui::SetCursorPos({slider_x, pad + row_h + center_y_off});
+  ImGui::SetNextItemWidth(slider_w);
+  if (audio_ctx_) {
+    ImGui::SliderFloat("##sfx_volume", &audio_ctx_->sfx_volume, 0.0f, 1.0f, "");
+  }
+
   ImGui::PopStyleVar(1);
   ImGui::PopStyleColor(4);
 }
@@ -104,11 +122,11 @@ SceneType MenuScene::draw() {
   SceneType next_scene = SceneType::NONE;
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y_px});
-  if (sound_button(audio_, "Play", btn_size)) {
+  if (sound_button(audio_ctx_, "Play", btn_size)) {
     next_scene = SceneType::GAME;
   }
   ImGui::SetCursorPos({btn_x, btn_y_px});
-  if (sound_button(audio_, "Quit", btn_size)) {
+  if (sound_button(audio_ctx_, "Quit", btn_size)) {
     next_scene = SceneType::QUIT;
   }
 
@@ -142,7 +160,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs player button
   ImGui::SetCursorPos({mode_x, mode_y});
   highlight(pvp);
-  if (sound_button(audio_, "Player vs Player", mode_btn_size)) {
+  if (sound_button(audio_ctx_, "Player vs Player", mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_PLAYER;
   }
   pop(pvp);
@@ -150,7 +168,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs bot button
   ImGui::SetCursorPos({mode_x + mode_btn_size.x + mode_gap, mode_y});
   highlight(pvb);
-  if (sound_button(audio_, "Player vs Bot", mode_btn_size)) {
+  if (sound_button(audio_ctx_, "Player vs Bot", mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_BOT;
   }
   pop(pvb);
@@ -167,7 +185,7 @@ void MenuScene::make_dimension_slider(const ImVec2 &display_size,
   ImGui::Text("Board Dimension");
   ImGui::SetCursorPosX(dim_slider_x);
   ImGui::SetNextItemWidth(dim_slider_w);
-  sound_slider(audio_, "##board_dimension", &board_dimension_,
+  sound_slider(audio_ctx_, "##board_dimension", &board_dimension_,
                MIN_BOARD_DIMENSION, MAX_BOARD_DIMENSION);
 }
 
@@ -185,7 +203,7 @@ void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
   ImGui::Text("Target In-a-row");
   ImGui::SetCursorPosX(target_slider_x);
   ImGui::SetNextItemWidth(target_slider_w);
-  sound_slider(audio_, "##in_a_row", &in_a_row_, MIN_TARGET, board_dimension_);
+  sound_slider(audio_ctx_, "##in_a_row", &in_a_row_, MIN_TARGET, board_dimension_);
 }
 
 void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
@@ -200,7 +218,7 @@ void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
   ImGui::SetNextItemWidth(slider_w);
 
   // Get difficulty and set depth
-  sound_slider(audio_, "##bot_difficulty", &difficulty_, 1, 5);
+  sound_slider(audio_ctx_, "##bot_difficulty", &difficulty_, 1, 5);
   depth_ = std::round(3 * difficulty_ /
                       std::log(1.0 * board_dimension_ * board_dimension_));
 }
@@ -237,7 +255,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // X button
   ImGui::SetCursorPos({start_x, y});
   highlight(px);
-  if (sound_button(audio_, "X", btn_size)) {
+  if (sound_button(audio_ctx_, "X", btn_size)) {
     player_side_ = PlayerSide::X;
   }
   pop(px);
@@ -245,7 +263,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // O button
   ImGui::SetCursorPos({start_x + btn_size.x + gap, y});
   highlight(po);
-  if (sound_button(audio_, "O", btn_size)) {
+  if (sound_button(audio_ctx_, "O", btn_size)) {
     player_side_ = PlayerSide::O;
   }
   pop(po);
@@ -253,7 +271,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // Random button
   ImGui::SetCursorPos({start_x + (btn_size.x + gap) * 2, y});
   highlight(pr);
-  if (sound_button(audio_, "Random", btn_size)) {
+  if (sound_button(audio_ctx_, "Random", btn_size)) {
     player_side_ = PlayerSide::RANDOM;
   }
   pop(pr);
@@ -264,10 +282,8 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
 //////////////////////////////////////////////////////////////
 
 GameScene::GameScene(unsigned board_dimension, unsigned in_a_row,
-                     unsigned int x_tex, unsigned int o_tex, ma_engine *audio,
-                     ma_sound *bgm, unsigned int music_tex)
-    : Scene(audio, bgm, music_tex), game_(board_dimension, in_a_row),
-      x_tex_(x_tex), o_tex_(o_tex) {}
+                     AudioContext *audio_ctx, TextureContext *tex_ctx)
+    : Scene(audio_ctx, tex_ctx), game_(board_dimension, in_a_row) {}
 
 SceneType GameScene::draw() {
   // Create window
@@ -387,13 +403,13 @@ SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
   float btn_y = display_size.y * 0.85f;
 
   ImGui::SetCursorPos({btn_x, btn_y});
-  if (sound_button(audio_, "Play Again", btn_size)) {
+  if (sound_button(audio_ctx_, "Play Again", btn_size)) {
     on_reset();
     game_.reset();
   }
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y});
-  if (sound_button(audio_, "Return to Menu", btn_size)) {
+  if (sound_button(audio_ctx_, "Return to Menu", btn_size)) {
     return SceneType::MENU;
   }
 
@@ -425,8 +441,9 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
           game_.make_move(r, c);
         }
       } else {
-        ImTextureID tex =
-            (ImTextureID)(intptr_t)(cell == PLAYER_X ? x_tex_ : o_tex_);
+        ImTextureID tex = (ImTextureID)(intptr_t)(cell == PLAYER_X
+                                                       ? tex_ctx_->x_tex
+                                                       : tex_ctx_->o_tex);
         ImGui::ImageButton("img", tex, {img_size, img_size});
       }
       ImGui::PopID();
@@ -441,10 +458,8 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
 //////////////////////////////////////////////////////////////
 
 PVPScene::PVPScene(unsigned board_dimension, unsigned in_a_row,
-                   unsigned int x_tex, unsigned int o_tex, ma_engine *audio,
-                   ma_sound *bgm, unsigned int music_tex)
-    : GameScene(board_dimension, in_a_row, x_tex, o_tex, audio, bgm,
-                music_tex) {}
+                   AudioContext *audio_ctx, TextureContext *tex_ctx)
+    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx) {}
 
 std::string PVPScene::get_game_label() const {
   Result result = game_.get_result();
@@ -464,10 +479,9 @@ std::string PVPScene::get_game_label() const {
 //////////////////////////////////////////////////////////////
 
 PVBScene::PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
-                   bool player_x, bool iddfs, unsigned int x_tex,
-                   unsigned int o_tex, ma_engine *audio, ma_sound *bgm,
-                   unsigned int music_tex)
-    : GameScene(board_dimension, in_a_row, x_tex, o_tex, audio, bgm, music_tex),
+                   bool player_x, bool iddfs, AudioContext *audio_ctx,
+                   TextureContext *tex_ctx)
+    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx),
       depth_(depth), player_x_(player_x) {
   bot_ = std::make_unique<Bot>(board_dimension, in_a_row, depth, iddfs);
 }

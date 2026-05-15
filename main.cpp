@@ -20,20 +20,37 @@ constexpr const char *FONT_PATH = "../assets/ui/pixel-emulator.ttf";
 constexpr const char *X_ICON_PATH = "../assets/ui/images/x_icon.png";
 constexpr const char *O_ICON_PATH = "../assets/ui/images/o_icon.png";
 constexpr const char *MUSIC_ICON_PATH = "../assets/ui/images/music_icon.png";
+constexpr const char *SFX_ICON_PATH = "../assets/ui/images/sfx_icon.png";
 
-// Background bossa nova music
-static constexpr const char *BGM_PATH =
-    "../assets/audio/bossa_nova_background.mp3";
-static bool load_bgm(ma_engine *audio, ma_sound *bgm) {
-  if (ma_sound_init_from_file(audio, BGM_PATH, 0, nullptr, nullptr, bgm) !=
+static bool load_sound(ma_engine *engine, const char *path, unsigned flags,
+                       ma_sound *out) {
+  if (ma_sound_init_from_file(engine, path, flags, nullptr, nullptr, out) !=
       MA_SUCCESS) {
-    fprintf(stderr, "Failed to load BGM: %s\n", BGM_PATH);
+    fprintf(stderr, "Failed to load sound: %s\n", path);
     return false;
   }
-  ma_sound_set_looping(bgm, MA_TRUE);
-  ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
-  ma_sound_start(bgm);
   return true;
+}
+
+static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *click,
+                       ma_sound *slider, AudioContext &ctx) {
+  if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
+    fprintf(stderr, "Failed to initialize audio engine, continuing without audio\n");
+    return;
+  }
+  ctx.engine = engine;
+  if (load_sound(engine, "../assets/audio/bossa_nova_background.mp3", 0, bgm)) {
+    ma_sound_set_looping(bgm, MA_TRUE);
+    ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
+    ma_sound_start(bgm);
+    ctx.bgm = bgm;
+  }
+  if (load_sound(engine, "../assets/audio/button.mp3", MA_SOUND_FLAG_DECODE, click)) {
+    ctx.click = click;
+  }
+  if (load_sound(engine, "../assets/audio/slider.mp3", MA_SOUND_FLAG_DECODE, slider)) {
+    ctx.slider = slider;
+  }
 }
 
 static GLuint load_texture(const char *path) {
@@ -127,27 +144,22 @@ int main() {
     return -1;
   }
 
-  // Load icon images
-  GLuint x_tex = load_texture(X_ICON_PATH);
-  GLuint o_tex = load_texture(O_ICON_PATH);
-  GLuint music_tex = load_texture(MUSIC_ICON_PATH);
+  // Load icon textures
+  TextureContext tex_ctx;
+  tex_ctx.music_tex = load_texture(MUSIC_ICON_PATH);
+  tex_ctx.sfx_tex   = load_texture(SFX_ICON_PATH);
+  tex_ctx.x_tex     = load_texture(X_ICON_PATH);
+  tex_ctx.o_tex     = load_texture(O_ICON_PATH);
 
-  // Init audio engine and start background music
+  // Init audio engine and sounds
   ma_engine audio;
-  bool audio_ok = ma_engine_init(nullptr, &audio) == MA_SUCCESS;
-  if (!audio_ok) {
-    fprintf(stderr,
-            "Failed to initialize audio engine, continuing without audio\n");
-  } 
-  ma_sound bgm;
-  bool bgm_ok = false;
-  if (audio_ok) {
-    bgm_ok = load_bgm(&audio, &bgm);
-  }
+  ma_sound bgm, click_snd, slider_snd;
+  AudioContext audio_ctx;
+  init_audio(&audio, &bgm, &click_snd, &slider_snd, audio_ctx);
 
   // Start on menu scene
-  std::unique_ptr<Scene> scene = std::make_unique<MenuScene>(
-      audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
+  std::unique_ptr<Scene> scene =
+      std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
 
   while (!glfwWindowShouldClose(window)) {
     // Handle input events
@@ -173,9 +185,9 @@ int main() {
     if (next == SceneType::GAME) {
       auto *menu = static_cast<MenuScene *>(scene.get());
       if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
-        scene = std::make_unique<PVPScene>(
-            menu->get_board_dimension(), menu->get_in_a_row(), x_tex, o_tex,
-            audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
+        scene = std::make_unique<PVPScene>(menu->get_board_dimension(),
+                                           menu->get_in_a_row(), &audio_ctx,
+                                           &tex_ctx);
       } else {
         bool player_x;
         if (menu->get_player_side() == PlayerSide::RANDOM) {
@@ -184,14 +196,13 @@ int main() {
         } else {
           player_x = menu->get_player_side() == PlayerSide::X;
         }
-        scene = std::make_unique<PVBScene>(
-            menu->get_board_dimension(), menu->get_in_a_row(),
-            menu->get_depth(), player_x, false, x_tex, o_tex,
-            audio_ok ? &audio : nullptr, bgm_ok ? &bgm : nullptr, music_tex);
+        scene = std::make_unique<PVBScene>(menu->get_board_dimension(),
+                                           menu->get_in_a_row(),
+                                           menu->get_depth(), player_x, false,
+                                           &audio_ctx, &tex_ctx);
       }
     } else if (next == SceneType::MENU) {
-      scene = std::make_unique<MenuScene>(audio_ok ? &audio : nullptr,
-                                          bgm_ok ? &bgm : nullptr, music_tex);
+      scene = std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
     } else if (next == SceneType::QUIT) {
       glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
@@ -206,15 +217,14 @@ int main() {
   }
 
   // Cleanup
-  if (bgm_ok) {
-    ma_sound_uninit(&bgm);
-  }
-  if (audio_ok) {
-    ma_engine_uninit(&audio);
-  }
-  glDeleteTextures(1, &x_tex);
-  glDeleteTextures(1, &o_tex);
-  glDeleteTextures(1, &music_tex);
+  if (audio_ctx.click)  { ma_sound_uninit(&click_snd); }
+  if (audio_ctx.slider) { ma_sound_uninit(&slider_snd); }
+  if (audio_ctx.bgm)    { ma_sound_uninit(&bgm); }
+  if (audio_ctx.engine) { ma_engine_uninit(&audio); }
+  glDeleteTextures(1, &tex_ctx.music_tex);
+  glDeleteTextures(1, &tex_ctx.sfx_tex);
+  glDeleteTextures(1, &tex_ctx.x_tex);
+  glDeleteTextures(1, &tex_ctx.o_tex);
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
