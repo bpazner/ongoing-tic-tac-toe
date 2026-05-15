@@ -21,6 +21,10 @@ constexpr const char *X_ICON_PATH = "../assets/ui/images/x_icon.png";
 constexpr const char *O_ICON_PATH = "../assets/ui/images/o_icon.png";
 constexpr const char *MUSIC_ICON_PATH = "../assets/ui/images/music_icon.png";
 constexpr const char *SFX_ICON_PATH = "../assets/ui/images/sfx_icon.png";
+constexpr const char *BGM_PATH = "../assets/audio/bossa_nova_background.mp3";
+constexpr const char *BUTTON_SFX_PATH = "../assets/audio/button.mp3";
+constexpr const char *SLIDER_SFX_PATH = "../assets/audio/slider.mp3";
+constexpr const char *TILE_SFX_PATH = "../assets/audio/tile.mp3";
 
 static bool load_sound(ma_engine *engine, const char *path, unsigned flags,
                        ma_sound *out) {
@@ -32,24 +36,27 @@ static bool load_sound(ma_engine *engine, const char *path, unsigned flags,
   return true;
 }
 
-static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *click,
-                       ma_sound *slider, AudioContext &ctx) {
+static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *button,
+                       ma_sound *slider, ma_sound *tile, AudioContext &ctx) {
   if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
     fprintf(stderr, "Failed to initialize audio engine, continuing without audio\n");
     return;
   }
   ctx.engine = engine;
-  if (load_sound(engine, "../assets/audio/bossa_nova_background.mp3", 0, bgm)) {
+  if (load_sound(engine, BGM_PATH, 0, bgm)) {
     ma_sound_set_looping(bgm, MA_TRUE);
     ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
     ma_sound_start(bgm);
     ctx.bgm = bgm;
   }
-  if (load_sound(engine, "../assets/audio/button.mp3", MA_SOUND_FLAG_DECODE, click)) {
-    ctx.click = click;
+  if (load_sound(engine, BUTTON_SFX_PATH, MA_SOUND_FLAG_DECODE, button)) {
+    ctx.button = button;
   }
-  if (load_sound(engine, "../assets/audio/slider.mp3", MA_SOUND_FLAG_DECODE, slider)) {
+  if (load_sound(engine, SLIDER_SFX_PATH, MA_SOUND_FLAG_DECODE, slider)) {
     ctx.slider = slider;
+  }
+  if (load_sound(engine, TILE_SFX_PATH, MA_SOUND_FLAG_DECODE, tile)) {
+    ctx.tile = tile;
   }
 }
 
@@ -153,9 +160,9 @@ int main() {
 
   // Init audio engine and sounds
   ma_engine audio;
-  ma_sound bgm, click_snd, slider_snd;
+  ma_sound bgm, button_snd, slider_snd, tile_snd;
   AudioContext audio_ctx;
-  init_audio(&audio, &bgm, &click_snd, &slider_snd, audio_ctx);
+  init_audio(&audio, &bgm, &button_snd, &slider_snd, &tile_snd, audio_ctx);
 
   // Start on menu scene
   std::unique_ptr<Scene> scene =
@@ -217,7 +224,8 @@ int main() {
   }
 
   // Cleanup
-  if (audio_ctx.click)  { ma_sound_uninit(&click_snd); }
+  if (audio_ctx.tile)   { ma_sound_uninit(&tile_snd); }
+  if (audio_ctx.button) { ma_sound_uninit(&button_snd); }
   if (audio_ctx.slider) { ma_sound_uninit(&slider_snd); }
   if (audio_ctx.bgm)    { ma_sound_uninit(&bgm); }
   if (audio_ctx.engine) { ma_engine_uninit(&audio); }

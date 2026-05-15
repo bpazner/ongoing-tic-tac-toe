@@ -14,11 +14,11 @@ static void play_sfx(ma_sound *sound, float volume) {
   ma_sound_start(sound);
 }
 
-static bool sound_button(AudioContext *ctx, const char *label,
+static bool sound_button(ma_sound *sound, float sfx_volume, const char *label,
                          const ImVec2 &size = {0, 0}) {
   bool clicked = ImGui::Button(label, size);
-  if (clicked && ctx) {
-    play_sfx(ctx->click, ctx->sfx_volume);
+  if (clicked && sound) {
+    play_sfx(sound, sfx_volume);
   }
   return clicked;
 }
@@ -122,11 +122,11 @@ SceneType MenuScene::draw() {
   SceneType next_scene = SceneType::NONE;
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y_px});
-  if (sound_button(audio_ctx_, "Play", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play", btn_size)) {
     next_scene = SceneType::GAME;
   }
   ImGui::SetCursorPos({btn_x, btn_y_px});
-  if (sound_button(audio_ctx_, "Quit", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Quit", btn_size)) {
     next_scene = SceneType::QUIT;
   }
 
@@ -160,7 +160,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs player button
   ImGui::SetCursorPos({mode_x, mode_y});
   highlight(pvp);
-  if (sound_button(audio_ctx_, "Player vs Player", mode_btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Player", mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_PLAYER;
   }
   pop(pvp);
@@ -168,7 +168,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   // Player vs bot button
   ImGui::SetCursorPos({mode_x + mode_btn_size.x + mode_gap, mode_y});
   highlight(pvb);
-  if (sound_button(audio_ctx_, "Player vs Bot", mode_btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Bot", mode_btn_size)) {
     gamemode_ = Gamemode::PLAYER_VS_BOT;
   }
   pop(pvb);
@@ -255,7 +255,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // X button
   ImGui::SetCursorPos({start_x, y});
   highlight(px);
-  if (sound_button(audio_ctx_, "X", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "X", btn_size)) {
     player_side_ = PlayerSide::X;
   }
   pop(px);
@@ -263,7 +263,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // O button
   ImGui::SetCursorPos({start_x + btn_size.x + gap, y});
   highlight(po);
-  if (sound_button(audio_ctx_, "O", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "O", btn_size)) {
     player_side_ = PlayerSide::O;
   }
   pop(po);
@@ -271,7 +271,7 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
   // Random button
   ImGui::SetCursorPos({start_x + (btn_size.x + gap) * 2, y});
   highlight(pr);
-  if (sound_button(audio_ctx_, "Random", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Random", btn_size)) {
     player_side_ = PlayerSide::RANDOM;
   }
   pop(pr);
@@ -403,13 +403,13 @@ SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
   float btn_y = display_size.y * 0.85f;
 
   ImGui::SetCursorPos({btn_x, btn_y});
-  if (sound_button(audio_ctx_, "Play Again", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Play Again", btn_size)) {
     on_reset();
     game_.reset();
   }
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y});
-  if (sound_button(audio_ctx_, "Return to Menu", btn_size)) {
+  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Return to Menu", btn_size)) {
     return SceneType::MENU;
   }
 
@@ -439,6 +439,7 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
       if (cell == EMPTY) {
         if (ImGui::Button("", {cell_size, cell_size}) && can_move()) {
           game_.make_move(r, c);
+          play_sfx(audio_ctx_->tile, audio_ctx_->sfx_volume);
         }
       } else {
         ImTextureID tex = (ImTextureID)(intptr_t)(cell == PLAYER_X
@@ -505,6 +506,9 @@ void PVBScene::pre_draw() {
       // Bot finished, apply move
       game_.make_move(bot_future_.get());
       bot_thinking_ = false;
+
+      // Play tile sound
+      play_sfx(audio_ctx_->tile, audio_ctx_->sfx_volume);
     }
   }
 }

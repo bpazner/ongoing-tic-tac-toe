@@ -18,8 +18,9 @@ struct ma_sound;
 struct AudioContext {
   ma_engine *engine = nullptr;
   ma_sound *bgm = nullptr;
-  ma_sound *click = nullptr;
+  ma_sound *button = nullptr;
   ma_sound *slider = nullptr;
+  ma_sound *tile = nullptr;
   float bgm_volume = 0.5f;
   float sfx_volume = 0.5f;
 };
