@@ -21,6 +21,20 @@ void Game::reset() {
   result_ = Result::NOT_OVER;
 }
 
+bool Game::make_move(unsigned loc) {
+  board_[loc] = x_turn_ ? PLAYER_X : PLAYER_O;
+  x_turn_ = !x_turn_;
+
+  auto prev_x_score = x_score_;
+  auto prev_o_score = o_score_;
+  x_score_ = get_score(board_, board_dimension_, in_a_row_, PLAYER_X);
+  o_score_ = get_score(board_, board_dimension_, in_a_row_, PLAYER_O);
+
+  update_result();
+
+  return x_score_ > prev_x_score || o_score_ > prev_o_score;
+}
+
 void Game::update_result() {
   // Check if not over
   for (auto cell : board_) {
@@ -38,6 +52,82 @@ void Game::update_result() {
   } else {
     result_ = Result::TIE;
   }
+}
+
+std::vector<std::pair<unsigned, unsigned>>
+Game::get_in_a_row_locs(unsigned row, unsigned col) const {
+  char player = get_cell(row, col);
+  if (player == EMPTY)
+    return {};
+
+  std::vector<std::pair<unsigned, unsigned>> locs;
+
+  // Scan the line through (row, col) in direction (dr, dc),
+  // starting up to in_a_row_ - 1 steps back.
+  // Collect streaks >= in_a_row_ that include (row, col).
+  auto scan = [&](int dr, int dc) {
+    // Step back up to in_a_row_ - 1 steps to find start
+    int r0 = (int)row, c0 = (int)col;
+    for (int i = 0; i < (int)in_a_row_ - 1; i++) {
+      int r = r0 - dr, c = c0 - dc;
+      if (r < 0 || c < 0 || r >= (int)board_dimension_ ||
+          c >= (int)board_dimension_) {
+        break;
+      }
+      r0 = r;
+      c0 = c;
+    }
+
+    // Step forward up to in_a_row_ + 1 steps to find end
+    int r1 = (int)row, c1 = (int)col;
+    for (int i = 0; i < (int)in_a_row_ - 1; i++) {
+      int r = r1 + dr, c = c1 + dc;
+      if (r < 0 || c < 0 || r >= (int)board_dimension_ ||
+          c >= (int)board_dimension_) {
+        break;
+      }
+      r1 = r;
+      c1 = c;
+    }
+
+    // Find streaks
+    std::vector<std::pair<unsigned, unsigned>> streak;
+    bool contains_loc = false;
+    for (int r = r0, c = c0; r >= 0 && c >= 0 && r < (int)board_dimension_ &&
+                             c < (int)board_dimension_;
+         r += dr, c += dc) {
+      if (get_cell(r, c) == player) {
+        streak.push_back({(unsigned)r, (unsigned)c});
+        if (r == (int)row && c == (int)col) {
+          contains_loc = true;
+        }
+      } else {
+        if (streak.size() >= in_a_row_ && contains_loc) {
+          locs.insert(locs.end(), streak.begin(), streak.end());
+        }
+        streak.clear();
+        contains_loc = false;
+      }
+
+      // Check end
+      if (r == r1 && c == c1) {
+        if (streak.size() >= in_a_row_ && contains_loc) {
+          locs.insert(locs.end(), streak.begin(), streak.end());
+        }
+        break;
+      }
+    }
+    if (streak.size() >= in_a_row_ && contains_loc) {
+      locs.insert(locs.end(), streak.begin(), streak.end());
+    }
+  };
+
+  scan(0, 1);  // horizontal
+  scan(1, 0);  // vertical
+  scan(1, 1);  // down-right diagonal
+  scan(1, -1); // down-left diagonal
+
+  return locs;
 }
 
 Result Game::run_player_vs_bot(bool player_x, Bot &bot,

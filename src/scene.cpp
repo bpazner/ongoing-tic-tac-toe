@@ -321,6 +321,18 @@ SceneType GameScene::draw() {
   return SceneType::NONE;
 }
 
+void GameScene::make_move_wrapper(unsigned r, unsigned c) {
+  bool is_scoring = game_.make_move(r, c);
+
+  // Get in a row locations of scoring move and update time for
+  if (is_scoring) {
+    auto locs = game_.get_in_a_row_locs(r, c);
+    auto time = ImGui::GetTime();
+    scoring_streaks_.push_back(
+        {std::move(locs), time, game_.get_cell(r, c) == PLAYER_X});
+  }
+}
+
 // Renders a label at (x, y), coloring X red and O green
 static void render_label_colored(const std::string &label, float x, float y) {
   constexpr ImVec4 red = {1.0f, 0.3f, 0.3f, 1.0f};
@@ -448,20 +460,68 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
       char cell = game_.get_cell(r, c);
       if (cell == EMPTY) {
         if (ImGui::Button("", {cell_size, cell_size}) && can_move()) {
-          game_.make_move(r, c);
           play_sfx(audio_ctx_->tile, audio_ctx_->sfx_volume);
+          make_move_wrapper(r, c);
         }
       } else {
         ImTextureID tex =
             (ImTextureID)(intptr_t)(cell == PLAYER_X ? tex_ctx_->x_tex
                                                      : tex_ctx_->o_tex);
-        ImGui::ImageButton("img", tex, {img_size, img_size});
+        ImGui::ImageButton("img", tex, {img_size, img_size}, {0, 0}, {1, 1},
+                           {0, 0, 0, 0}, get_tile_tint(r, c));
       }
       ImGui::PopID();
     }
   }
 
   ImGui::PopStyleVar();
+}
+
+static constexpr double TINT_DELTA_TIME = 0.35; // seconds between tile tints
+static constexpr double TINT_DURATION_PER_TILE =
+    TINT_DELTA_TIME * 2; // no tint -> full tint (halfway) -> no tint
+void GameScene::remove_completed_scoring_streaks() {
+  double now = ImGui::GetTime();
+  scoring_streaks_.erase(
+      std::remove_if(scoring_streaks_.begin(), scoring_streaks_.end(),
+                     [now](const ScoringStreak &streak) {
+                       double delta_time = now - streak.time;
+                       return delta_time >
+                              TINT_DELTA_TIME * streak.locs.size() +
+                                  TINT_DURATION_PER_TILE;
+                     }),
+      scoring_streaks_.end());
+}
+
+ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) const {
+  // Check each streak for given tile
+  for (const ScoringStreak &streak : scoring_streaks_) {
+    double delta_time = ImGui::GetTime() - streak.time;
+    assert(delta_time >= 0); // Streaks are added in real time
+    for (unsigned i = 0; i < streak.locs.size(); i++) {
+      auto [tr, tc] = streak.locs[i];
+      if (tr == r && tc == c) {
+        double tile_start_time = i * TINT_DELTA_TIME;
+        // Check if tile's tint is in progress
+        if (tile_start_time <= delta_time &&
+            delta_time <= tile_start_time + TINT_DURATION_PER_TILE) {
+          double tile_delta_time = delta_time - tile_start_time;
+          double tint_strength =
+              std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);
+
+          // Accentuate X with red tint, O with green tint
+          double tint_val = 1 - tint_strength;
+          if (game_.get_cell(r, c) == PLAYER_X) {
+            return ImVec4(1, tint_val, tint_val, 1);
+          } else if (game_.get_cell(r, c) == PLAYER_O) {
+            return ImVec4(tint_val, 1, tint_val, 1);
+          }
+        }
+      }
+    }
+  }
+
+  return ImVec4(1, 1, 1, 1);
 }
 
 //////////////////////////////////////////////////////////////
@@ -513,8 +573,8 @@ void PVBScene::pre_draw() {
       bot_thinking_ = true;
     } else if (bot_future_.wait_for(std::chrono::seconds(0)) ==
                std::future_status::ready) {
-      // Bot finished, apply move
-      game_.make_move(bot_future_.get());
+      // Bot finished, make move
+      make_move_wrapper(bot_future_.get());
       bot_thinking_ = false;
 
       // Play tile sound

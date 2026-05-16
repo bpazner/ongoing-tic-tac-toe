@@ -64,17 +64,36 @@ public:
   SceneType draw() final;
 
 protected:
-  virtual void pre_draw() {}
+  virtual void pre_draw() { remove_completed_scoring_streaks(); }
   virtual void on_reset() {}
   virtual std::string get_game_label() const { return ""; }
   virtual bool can_move() const { return true; }
 
+  // Also updates scoring animation structures
+  void make_move_wrapper(unsigned r, unsigned c);
+  void make_move_wrapper(unsigned loc) {
+    make_move_wrapper(loc / game_.get_board_dimension(),
+                      loc % game_.get_board_dimension());
+  }
+
   Game game_;
+
+  // Scoring animation structures
+  struct ScoringStreak {
+    std::vector<std::pair<unsigned, unsigned>> locs;
+    double time;
+    bool is_x;
+  };
+  std::vector<ScoringStreak> scoring_streaks_ = {};
 
 private:
   void make_header_labels(const ImVec2 &display_size, float min_dim);
-  void make_board_buttons(const ImVec2 &display_size, float min_dim);
   SceneType make_action_buttons(const ImVec2 &display_size, float min_dim);
+  void make_board_buttons(const ImVec2 &display_size, float min_dim);
+
+  // Scoring animation helpers
+  void remove_completed_scoring_streaks();
+  ImVec4 get_tile_tint(unsigned r, unsigned c) const;
 };
 
 // Two-player local game

@@ -20,26 +20,27 @@ public:
   bool get_x_turn() const { return x_turn_; }
   int64_t get_x_score() const { return x_score_; }
   int64_t get_o_score() const { return o_score_; }
+  Result get_result() const { return result_; }
+
   char get_cell(unsigned r, unsigned c) const {
     return board_[r * board_dimension_ + c];
   }
+
   // Places the current player's piece, updates scores and result,
   // and advances turn
-  void make_move(unsigned loc) {
-    board_[loc] = x_turn_ ? PLAYER_X : PLAYER_O;
-    x_turn_ = !x_turn_;
-    x_score_ = get_score(board_, board_dimension_, in_a_row_, PLAYER_X);
-    o_score_ = get_score(board_, board_dimension_, in_a_row_, PLAYER_O);
-    update_result();
-  }
-  void make_move(unsigned r, unsigned c) {
-    make_move(r * board_dimension_ + c);
+  // Returns whether move resulted in a score
+  bool make_move(unsigned loc);
+  bool make_move(unsigned r, unsigned c) {
+    return make_move(r * board_dimension_ + c);
   }
 
-  Result get_result() const { return result_; }
   // Sets result_ based on current board state,
   // NOT_OVER if any empty cell remains
   void update_result();
+
+  // Gets (row, col) locations of in-a-rows that include given location
+  std::vector<std::pair<unsigned, unsigned>>
+  get_in_a_row_locs(unsigned row, unsigned col) const;
 
   // Interactive CLI loop, <player_x> true means the human plays as X
   Result run_player_vs_bot(bool player_x, Bot &bot, unsigned bot_init_depth);
