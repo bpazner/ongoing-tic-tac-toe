@@ -10,14 +10,16 @@ A desktop tic-tac-toe game with configurable board size and win condition.
 
 ### Running
 
-Download the latest release and run the executable.
+Download the latest release and run the executable for your platform:
+- **Windows**: `OngoingTicTacToe.exe`
+- **Linux**: `OngoingTicTacToe`
 
-### Building from Source
+### Building From Source (Linux)
 
 **Requirements**
 
-- [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install)
-- Inside WSL, install dependencies:
+- On Windows, install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install)
+- Install dependencies:
   ```bash
   sudo apt update
   sudo apt install cmake g++ libglfw3-dev libgl1-mesa-dev git
@@ -28,34 +30,19 @@ Download the latest release and run the executable.
   systemctl --user start pipewire pipewire-pulse wireplumber
   ```
 
-**Build (Linux/WSLg)**
+**Build**
 
 ```bash
 cmake -B build
-cd build && make release
-./main
+cd build && make
+./OngoingTicTacToe
 ```
 
-**Build (Windows .exe via MinGW)**
-
-Install the cross-compiler and set it to use POSIX threads:
-```bash
-sudo apt install mingw-w64
-sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
-sudo update-alternatives --set x86_64-w64-mingw32-gcc /usr/bin/x86_64-w64-mingw32-gcc-posix
-```
-
-Then build:
-```bash
-cmake -B build-win -DCMAKE_TOOLCHAIN_FILE=cmake/toolchain-mingw.cmake
-cd build-win && make ott
-```
-
-The output is `build-win/ott.exe`. To run it, copy `ott.exe` and the `assets/` folder to the same directory on Windows.
+For a debug build, use `make debug` instead.
 
 ### Troubleshooting
 
-- **(Linux/WSL) Window doesn't open or appears in the taskbar but can't be focused** — WSLg has gotten into a bad state. Run the following in PowerShell, then try again:
+- **(Windows/WSL) Window doesn't open or appears in the taskbar but can't be focused** — WSLg has gotten into a bad state. Run the following in PowerShell, then try again:
   ```powershell
   wsl --shutdown
   ```

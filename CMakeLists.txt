@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(ott LANGUAGES CXX)
+project(OTT LANGUAGES CXX)
 
 include(FetchContent)
 
@@ -58,31 +58,37 @@ set(UI_INCLUDES
 )
 
 #######################################################################
-## MAIN
+## LINUX
 #######################################################################
 
-add_executable(main EXCLUDE_FROM_ALL
-    app/main.cpp
-    ${SRC_FILES}
-    ${UI_SRC_FILES}
-    ${IMGUI_SOURCES}
-)
-target_include_directories(main PRIVATE ${UI_INCLUDES})
-target_link_libraries(main PRIVATE glfw GL pthread dl)
-target_compile_options(main PRIVATE -O3)
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_executable(OngoingTicTacToe
+        app/main.cpp
+        ${SRC_FILES}
+        ${UI_SRC_FILES}
+        ${IMGUI_SOURCES}
+    )
+    target_include_directories(OngoingTicTacToe PRIVATE ${UI_INCLUDES})
+    target_link_libraries(OngoingTicTacToe PRIVATE glfw GL pthread dl)
+    target_compile_options(OngoingTicTacToe PRIVATE -O3)
 
-add_executable(main-debug EXCLUDE_FROM_ALL
-    app/main.cpp
-    ${SRC_FILES}
-    ${UI_SRC_FILES}
-    ${IMGUI_SOURCES}
-)
-target_include_directories(main-debug PRIVATE ${UI_INCLUDES})
-target_link_libraries(main-debug PRIVATE glfw GL pthread dl)
-target_compile_options(main-debug PRIVATE -O0 -g)
+    add_executable(OngoingTicTacToe-debug EXCLUDE_FROM_ALL
+        app/main.cpp
+        ${SRC_FILES}
+        ${UI_SRC_FILES}
+        ${IMGUI_SOURCES}
+    )
+    target_include_directories(OngoingTicTacToe-debug PRIVATE ${UI_INCLUDES})
+    target_link_libraries(OngoingTicTacToe-debug PRIVATE glfw GL pthread dl)
+    target_compile_options(OngoingTicTacToe-debug PRIVATE -O0 -g)
+
+    add_custom_target(debug
+        DEPENDS OngoingTicTacToe-debug
+    )
+endif()
 
 #######################################################################
-## WINDOWS (MinGW cross-compile)
+## WINDOWS RELEASE (MinGW cross-compile)
 #######################################################################
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
@@ -115,19 +121,3 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_compile_options(OngoingTicTacToe PRIVATE -O3)
     target_link_options(OngoingTicTacToe PRIVATE -static -static-libgcc -static-libstdc++)
 endif()
-
-#######################################################################
-## TARGETS
-#######################################################################
-
-add_custom_target(default ALL
-    COMMAND ${CMAKE_COMMAND} -E echo "Usage: make [release OR debug OR win-release]"
-)
-
-add_custom_target(release
-    DEPENDS main
-)
-
-add_custom_target(debug
-    DEPENDS main-debug
-)

@@ -1,3 +1,10 @@
+#include <GLFW/glfw3.h>
+
+#include <algorithm>
+#include <cstdio>
+#include <random>
+
+#include "assets.hpp"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "miniaudio.h"
@@ -5,39 +12,34 @@
 #include "stb_image.h"
 #include "utils.hpp"
 
-#include <GLFW/glfw3.h>
-#include <algorithm>
-#include <cstdio>
-#include <random>
-
 // UI configuration
-constexpr const char *TITLE = "Ongoing Tic-Tac-Toe";
+constexpr const char* TITLE = "Ongoing Tic-Tac-Toe";
 constexpr float WINDOWED_FACTOR = 0.6f;
 constexpr float BASE_FONT_SIZE = 160.0f;
 constexpr float FONT_SIZE_RATIO = 0.03f / BASE_FONT_SIZE;
 constexpr float FRAME_ROUNDING_RATIO = 0.005f;
-constexpr const char *FONT_PATH = "../assets/ui/pixel-emulator.ttf";
-constexpr const char *X_ICON_PATH = "../assets/ui/images/x_icon.png";
-constexpr const char *O_ICON_PATH = "../assets/ui/images/o_icon.png";
-constexpr const char *MUSIC_ICON_PATH = "../assets/ui/images/music_icon.png";
-constexpr const char *SFX_ICON_PATH = "../assets/ui/images/sfx_icon.png";
-constexpr const char *BGM_PATH = "../assets/audio/bossa_nova_background.mp3";
-constexpr const char *BUTTON_SFX_PATH = "../assets/audio/button.mp3";
-constexpr const char *SLIDER_SFX_PATH = "../assets/audio/slider.mp3";
-constexpr const char *TILE_SFX_PATH = "../assets/audio/tile.mp3";
 
-static bool load_sound(ma_engine *engine, const char *path, unsigned flags,
-                       ma_sound *out) {
-  if (ma_sound_init_from_file(engine, path, flags, nullptr, nullptr, out) !=
+// Registers audio data with the resource manager and initializes a sound
+static bool load_sound_mem(ma_engine* engine, const char* name,
+                           const void* data, ma_uint32 len, unsigned flags,
+                           ma_sound* out) {
+  ma_resource_manager* rm = ma_engine_get_resource_manager(engine);
+  if (ma_resource_manager_register_encoded_data(rm, name, data, len) !=
       MA_SUCCESS) {
-    fprintf(stderr, "Failed to load sound: %s\n", path);
+    fprintf(stderr, "Failed to register sound: %s\n", name);
+    return false;
+  }
+  if (ma_sound_init_from_file(engine, name, flags, nullptr, nullptr, out) !=
+      MA_SUCCESS) {
+    fprintf(stderr, "Failed to init sound: %s\n", name);
     return false;
   }
   return true;
 }
 
-static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *button,
-                       ma_sound *slider, ma_sound *tile, AudioContext &ctx) {
+// Initializes the audio engine and loads all sounds from embedded data
+static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
+                       ma_sound* slider, ma_sound* tile, AudioContext& ctx) {
   ma_engine_config engine_cfg = ma_engine_config_init();
   engine_cfg.periodSizeInMilliseconds = 10;
   if (ma_engine_init(&engine_cfg, engine) != MA_SUCCESS) {
@@ -46,29 +48,35 @@ static void init_audio(ma_engine *engine, ma_sound *bgm, ma_sound *button,
     return;
   }
   ctx.engine = engine;
-  if (load_sound(engine, BGM_PATH, 0, bgm)) {
+  if (load_sound_mem(engine, "bgm", bossa_nova_background_mp3,
+                     bossa_nova_background_mp3_len, 0, bgm)) {
     ma_sound_set_looping(bgm, MA_TRUE);
     ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
     ma_sound_start(bgm);
     ctx.bgm = bgm;
   }
-  if (load_sound(engine, BUTTON_SFX_PATH, MA_SOUND_FLAG_DECODE, button)) {
+  if (load_sound_mem(engine, "button", button_mp3, button_mp3_len,
+                     MA_SOUND_FLAG_DECODE, button)) {
     ctx.button = button;
   }
-  if (load_sound(engine, SLIDER_SFX_PATH, MA_SOUND_FLAG_DECODE, slider)) {
+  if (load_sound_mem(engine, "slider", slider_mp3, slider_mp3_len,
+                     MA_SOUND_FLAG_DECODE, slider)) {
     ctx.slider = slider;
   }
-  if (load_sound(engine, TILE_SFX_PATH, MA_SOUND_FLAG_DECODE, tile)) {
+  if (load_sound_mem(engine, "tile", tile_mp3, tile_mp3_len,
+                     MA_SOUND_FLAG_DECODE, tile)) {
     ctx.tile = tile;
   }
 }
 
-static GLuint load_texture(const char *path) {
+// Decodes a PNG from memory and uploads it as an OpenGL texture
+static GLuint load_texture(const unsigned char* buf, unsigned int len) {
   int w, h, channels;
-  unsigned char *data = stbi_load(path, &w, &h, &channels, 4);
+  unsigned char* data =
+      stbi_load_from_memory(buf, (int)len, &w, &h, &channels, 4);
   GLuint tex = 0;
   if (!data) {
-    fprintf(stderr, "Failed to load texture: %s\n", path);
+    fprintf(stderr, "Failed to load texture\n");
     return 0;
   }
   glGenTextures(1, &tex);
@@ -93,13 +101,13 @@ int main() {
   glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
   // Create window hidden
-  GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+  GLFWmonitor* monitor = glfwGetPrimaryMonitor();
   if (!monitor) {
     fprintf(stderr, "Failed to get primary monitor\n");
     glfwTerminate();
     return -1;
   }
-  const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+  const GLFWvidmode* mode = glfwGetVideoMode(monitor);
   if (!mode) {
     fprintf(stderr, "Failed to get video mode\n");
     glfwTerminate();
@@ -107,7 +115,7 @@ int main() {
   }
   int win_w = (int)(mode->width * WINDOWED_FACTOR);
   int win_h = (int)(mode->height * WINDOWED_FACTOR);
-  GLFWwindow *window = glfwCreateWindow(win_w, win_h, TITLE, nullptr, nullptr);
+  GLFWwindow* window = glfwCreateWindow(win_w, win_h, TITLE, nullptr, nullptr);
   if (!window) {
     fprintf(stderr,
             "Failed to create GLFW window (OpenGL 3.3 not supported?)\n");
@@ -128,15 +136,19 @@ int main() {
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGui::StyleColorsDark();
-  ImGuiIO &io = ImGui::GetIO();
+  ImGuiIO& io = ImGui::GetIO();
+  io.IniFilename = nullptr;
 
   // Init font, make sure it is large enough to prevent stretching
   ImFontConfig font_cfg;
   font_cfg.OversampleH = 1;
   font_cfg.OversampleV = 1;
   font_cfg.PixelSnapH = true;
-  if (!io.Fonts->AddFontFromFileTTF(FONT_PATH, BASE_FONT_SIZE, &font_cfg)) {
-    fprintf(stderr, "Failed to load font: %s\n", FONT_PATH);
+  font_cfg.FontDataOwnedByAtlas = false;
+  if (!io.Fonts->AddFontFromMemoryTTF(pixel_emulator_ttf,
+                                      pixel_emulator_ttf_len, BASE_FONT_SIZE,
+                                      &font_cfg)) {
+    fprintf(stderr, "Failed to load font\n");
   }
   if (!ImGui_ImplGlfw_InitForOpenGL(window, true)) {
     fprintf(stderr, "Failed to initialize ImGui GLFW backend\n");
@@ -156,10 +168,10 @@ int main() {
 
   // Load icon textures
   TextureContext tex_ctx;
-  tex_ctx.music_tex = load_texture(MUSIC_ICON_PATH);
-  tex_ctx.sfx_tex = load_texture(SFX_ICON_PATH);
-  tex_ctx.x_tex = load_texture(X_ICON_PATH);
-  tex_ctx.o_tex = load_texture(O_ICON_PATH);
+  tex_ctx.music_tex = load_texture(music_icon_png, music_icon_png_len);
+  tex_ctx.sfx_tex = load_texture(sfx_icon_png, sfx_icon_png_len);
+  tex_ctx.x_tex = load_texture(x_icon_png, x_icon_png_len);
+  tex_ctx.o_tex = load_texture(o_icon_png, o_icon_png_len);
 
   // Init audio engine and sounds
   ma_engine audio;
@@ -193,7 +205,7 @@ int main() {
     // Draw current scene, handle transitions
     SceneType next = scene->draw();
     if (next == SceneType::GAME) {
-      auto *menu = static_cast<MenuScene *>(scene.get());
+      auto* menu = static_cast<MenuScene*>(scene.get());
       if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
         scene = std::make_unique<PVPScene>(menu->get_board_dimension(),
                                            menu->get_in_a_row(), &audio_ctx,
