@@ -82,11 +82,46 @@ target_link_libraries(main-debug PRIVATE glfw GL pthread dl)
 target_compile_options(main-debug PRIVATE -O0 -g)
 
 #######################################################################
+## WINDOWS (MinGW cross-compile)
+#######################################################################
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(GLFW_WIN_DIR ${CMAKE_BINARY_DIR}/glfw-win)
+    set(GLFW_WIN_ZIP ${CMAKE_BINARY_DIR}/glfw-win.zip)
+    if(NOT EXISTS ${GLFW_WIN_DIR}/include)
+        file(DOWNLOAD
+            "https://github.com/glfw/glfw/releases/download/3.4/glfw-3.4.bin.WIN64.zip"
+            ${GLFW_WIN_ZIP}
+            SHOW_PROGRESS
+        )
+        file(ARCHIVE_EXTRACT INPUT ${GLFW_WIN_ZIP} DESTINATION ${CMAKE_BINARY_DIR}/glfw-win-extract)
+        file(RENAME ${CMAKE_BINARY_DIR}/glfw-win-extract/glfw-3.4.bin.WIN64 ${GLFW_WIN_DIR})
+    endif()
+
+    set(GLFW_WIN_INCLUDE ${GLFW_WIN_DIR}/include)
+    set(GLFW_WIN_LIB ${GLFW_WIN_DIR}/lib-mingw-w64/libglfw3.a)
+
+    add_executable(OngoingTicTacToe WIN32
+        app/main.cpp
+        ${SRC_FILES}
+        ${UI_SRC_FILES}
+        ${IMGUI_SOURCES}
+    )
+    target_include_directories(OngoingTicTacToe PRIVATE ${UI_INCLUDES} ${GLFW_WIN_INCLUDE})
+    target_link_libraries(OngoingTicTacToe PRIVATE
+        ${GLFW_WIN_LIB}
+        opengl32 gdi32 shell32 ole32
+    )
+    target_compile_options(OngoingTicTacToe PRIVATE -O3)
+    target_link_options(OngoingTicTacToe PRIVATE -static -static-libgcc -static-libstdc++)
+endif()
+
+#######################################################################
 ## TARGETS
 #######################################################################
 
 add_custom_target(default ALL
-    COMMAND ${CMAKE_COMMAND} -E echo "Usage: make [release OR debug]"
+    COMMAND ${CMAKE_COMMAND} -E echo "Usage: make [release OR debug OR win-release]"
 )
 
 add_custom_target(release

@@ -54,11 +54,10 @@ void Game::update_result() {
   }
 }
 
-std::vector<std::pair<unsigned, unsigned>>
-Game::get_in_a_row_locs(unsigned row, unsigned col) const {
+std::vector<std::pair<unsigned, unsigned>> Game::get_in_a_row_locs(
+    unsigned row, unsigned col) const {
   char player = get_cell(row, col);
-  if (player == EMPTY)
-    return {};
+  if (player == EMPTY) return {};
 
   std::vector<std::pair<unsigned, unsigned>> locs;
 
@@ -92,45 +91,37 @@ Game::get_in_a_row_locs(unsigned row, unsigned col) const {
 
     // Find streaks
     std::vector<std::pair<unsigned, unsigned>> streak;
-    bool contains_loc = false;
     for (int r = r0, c = c0; r >= 0 && c >= 0 && r < (int)board_dimension_ &&
                              c < (int)board_dimension_;
          r += dr, c += dc) {
       if (get_cell(r, c) == player) {
         streak.push_back({(unsigned)r, (unsigned)c});
-        if (r == (int)row && c == (int)col) {
-          contains_loc = true;
-        }
       } else {
-        if (streak.size() >= in_a_row_ && contains_loc) {
+        if (streak.size() >= in_a_row_) {
           locs.insert(locs.end(), streak.begin(), streak.end());
         }
         streak.clear();
-        contains_loc = false;
       }
 
       // Check end
       if (r == r1 && c == c1) {
-        if (streak.size() >= in_a_row_ && contains_loc) {
-          locs.insert(locs.end(), streak.begin(), streak.end());
-        }
         break;
       }
     }
-    if (streak.size() >= in_a_row_ && contains_loc) {
+    if (streak.size() >= in_a_row_) {
       locs.insert(locs.end(), streak.begin(), streak.end());
     }
   };
 
-  scan(0, 1);  // horizontal
-  scan(1, 0);  // vertical
-  scan(1, 1);  // down-right diagonal
-  scan(1, -1); // down-left diagonal
+  scan(0, 1);   // horizontal
+  scan(1, 0);   // vertical
+  scan(1, 1);   // down-right diagonal
+  scan(1, -1);  // down-left diagonal
 
   return locs;
 }
 
-Result Game::run_player_vs_bot(bool player_x, Bot &bot,
+Result Game::run_player_vs_bot(bool player_x, Bot& bot,
                                unsigned bot_init_depth) {
   print();
   unsigned n = board_dimension_ * board_dimension_;
@@ -194,7 +185,7 @@ Result Game::run_player_vs_bot(bool player_x, Bot &bot,
   return result;
 }
 
-Result Game::run_bot_vs_bot(Bot &bot, unsigned x_init_depth,
+Result Game::run_bot_vs_bot(Bot& bot, unsigned x_init_depth,
                             unsigned o_init_depth, bool print_game) {
   auto start_time = GET_TIME;
   if (print_game) {

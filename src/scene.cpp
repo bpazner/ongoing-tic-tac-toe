@@ -1,11 +1,12 @@
 #include "scene.hpp"
 
-#include "miniaudio.h"
 #include <algorithm>
 #include <chrono>
 #include <future>
 
-static void play_sfx(ma_sound *sound, float volume) {
+#include "miniaudio.h"
+
+static void play_sfx(ma_sound* sound, float volume) {
   if (!sound) {
     return;
   }
@@ -14,8 +15,8 @@ static void play_sfx(ma_sound *sound, float volume) {
   ma_sound_start(sound);
 }
 
-static bool sound_button(ma_sound *sound, float sfx_volume, const char *label,
-                         const ImVec2 &size = {0, 0}) {
+static bool sound_button(ma_sound* sound, float sfx_volume, const char* label,
+                         const ImVec2& size = {0, 0}) {
   bool clicked = ImGui::Button(label, size);
   if (clicked && sound) {
     play_sfx(sound, sfx_volume);
@@ -23,7 +24,7 @@ static bool sound_button(ma_sound *sound, float sfx_volume, const char *label,
   return clicked;
 }
 
-static bool sound_slider(AudioContext *ctx, const char *label, int *v,
+static bool sound_slider(AudioContext* ctx, const char* label, int* v,
                          int v_min, int v_max) {
   bool changed = ImGui::SliderInt(label, v, v_min, v_max);
   if (changed && ctx) {
@@ -138,7 +139,7 @@ SceneType MenuScene::draw() {
   return next_scene;
 }
 
-void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
+void MenuScene::make_gamemode_buttons(const ImVec2& display_size,
                                       float min_dim) {
   ImVec2 mode_btn_size = {min_dim * 0.4f, min_dim * 0.08f};
   float mode_gap = min_dim * 0.01f;
@@ -180,7 +181,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
   pop(pvb);
 }
 
-void MenuScene::make_dimension_slider(const ImVec2 &display_size,
+void MenuScene::make_dimension_slider(const ImVec2& display_size,
                                       float min_dim) {
   // Make slider (min dimension - max dimension)
   float dim_slider_w = min_dim * 0.4f;
@@ -195,7 +196,7 @@ void MenuScene::make_dimension_slider(const ImVec2 &display_size,
                MIN_BOARD_DIMENSION, MAX_BOARD_DIMENSION);
 }
 
-void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
+void MenuScene::make_in_a_row_slider(const ImVec2& display_size,
                                      float min_dim) {
   // Clamp in-a-row to current dimension
   in_a_row_ = std::min(in_a_row_, board_dimension_);
@@ -213,7 +214,7 @@ void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
                board_dimension_);
 }
 
-void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
+void MenuScene::make_difficulty_slider(const ImVec2& display_size,
                                        float min_dim) {
   // Make slider (1 - 5), depth scales as difficulty * 2
   float slider_w = min_dim * 0.4f;
@@ -230,7 +231,7 @@ void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
                       std::log(1.0 * board_dimension_ * board_dimension_));
 }
 
-void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
+void MenuScene::make_player_side_buttons(const ImVec2& display_size,
                                          float min_dim) {
   // Three buttons: X, O, Random
   ImVec2 btn_size = {min_dim * 0.13f, min_dim * 0.06f};
@@ -290,8 +291,11 @@ void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
 //////////////////////////////////////////////////////////////
 
 GameScene::GameScene(unsigned board_dimension, unsigned in_a_row,
-                     AudioContext *audio_ctx, TextureContext *tex_ctx)
-    : Scene(audio_ctx, tex_ctx), game_(board_dimension, in_a_row) {}
+                     AudioContext* audio_ctx, TextureContext* tex_ctx)
+    : Scene(audio_ctx, tex_ctx),
+      game_(board_dimension, in_a_row),
+      tint_start_times_(board_dimension,
+                        std::vector<std::vector<double>>(board_dimension)) {}
 
 SceneType GameScene::draw() {
   // Create window
@@ -321,20 +325,8 @@ SceneType GameScene::draw() {
   return SceneType::NONE;
 }
 
-void GameScene::make_move_wrapper(unsigned r, unsigned c) {
-  bool is_scoring = game_.make_move(r, c);
-
-  // Get in a row locations of scoring move and update time for
-  if (is_scoring) {
-    auto locs = game_.get_in_a_row_locs(r, c);
-    auto time = ImGui::GetTime();
-    scoring_streaks_.push_back(
-        {std::move(locs), time, game_.get_cell(r, c) == PLAYER_X});
-  }
-}
-
 // Renders a label at (x, y), coloring X red and O green
-static void render_label_colored(const std::string &label, float x, float y) {
+static void render_label_colored(const std::string& label, float x, float y) {
   constexpr ImVec4 red = {1.0f, 0.3f, 0.3f, 1.0f};
   constexpr ImVec4 green = {0.3f, 1.0f, 0.3f, 1.0f};
 
@@ -342,7 +334,7 @@ static void render_label_colored(const std::string &label, float x, float y) {
   size_t start = 0;
 
   // Position first segment at (x, y), chain the rest with SameLine
-  auto emit = [&](const char *text, const ImVec4 *color) {
+  auto emit = [&](const char* text, const ImVec4* color) {
     if (first) {
       ImGui::SetCursorPos({x, y});
       first = false;
@@ -374,7 +366,7 @@ static void render_label_colored(const std::string &label, float x, float y) {
   }
 }
 
-void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {
+void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
   float label_y = display_size.y * 0.1f;
   constexpr float score_scale = 2.0f;
 
@@ -398,7 +390,7 @@ void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {
   std::string game_label_base = game_label;
   while (!game_label_base.empty() && game_label_base.back() == '.') {
     game_label_base.pop_back();
-  } // Ignore "..." when positioning label
+  }  // Ignore "..." when positioning label
   float game_label_w = ImGui::CalcTextSize(game_label_base.c_str()).x;
   render_label_colored(game_label, (display_size.x - game_label_w) / 2,
                        label_y);
@@ -413,7 +405,7 @@ void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {
   ImGui::SetWindowFontScale(1.0f);
 }
 
-SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
+SceneType GameScene::make_action_buttons(const ImVec2& display_size,
                                          float min_dim) {
   // Play again and return to menu buttons
   ImVec2 btn_size = {min_dim * 0.3f, min_dim * 0.08f};
@@ -438,7 +430,7 @@ SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
   return SceneType::NONE;
 }
 
-void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
+void GameScene::make_board_buttons(const ImVec2& display_size, float min_dim) {
   unsigned dim = game_.get_board_dimension();
 
   float board_size = min_dim * 0.6f;
@@ -477,49 +469,53 @@ void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
   ImGui::PopStyleVar();
 }
 
-static constexpr double TINT_DELTA_TIME = 0.35; // seconds between tile tints
+static constexpr double TINT_DELTA_TIME = 0.25;  // seconds between tile tints
 static constexpr double TINT_DURATION_PER_TILE =
-    TINT_DELTA_TIME * 2; // no tint -> full tint (halfway) -> no tint
-void GameScene::remove_completed_scoring_streaks() {
-  double now = ImGui::GetTime();
-  scoring_streaks_.erase(
-      std::remove_if(scoring_streaks_.begin(), scoring_streaks_.end(),
-                     [now](const ScoringStreak &streak) {
-                       double delta_time = now - streak.time;
-                       return delta_time >
-                              TINT_DELTA_TIME * streak.locs.size() +
-                                  TINT_DURATION_PER_TILE;
-                     }),
-      scoring_streaks_.end());
+    TINT_DELTA_TIME * 2;  // no tint -> full tint (halfway) -> no tint
+
+void GameScene::make_move_wrapper(unsigned r, unsigned c) {
+  bool is_scoring = game_.make_move(r, c);
+
+  // Get in a row locations of scoring move, and update tint times
+  if (is_scoring) {
+    auto locs = game_.get_in_a_row_locs(r, c);
+    double now = ImGui::GetTime();
+    for (unsigned i = 0; i < locs.size(); i++) {
+      std::pair<unsigned, unsigned> loc = locs[i];
+      tint_start_times_[loc.first][loc.second].push_back(now +
+                                                         i * TINT_DELTA_TIME);
+    }
+  }
 }
 
-ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) const {
-  // Check each streak for given tile
-  for (const ScoringStreak &streak : scoring_streaks_) {
-    double delta_time = ImGui::GetTime() - streak.time;
-    assert(delta_time >= 0); // Streaks are added in real time
-    for (unsigned i = 0; i < streak.locs.size(); i++) {
-      auto [tr, tc] = streak.locs[i];
-      if (tr == r && tc == c) {
-        double tile_start_time = i * TINT_DELTA_TIME;
-        // Check if tile's tint is in progress
-        if (tile_start_time <= delta_time &&
-            delta_time <= tile_start_time + TINT_DURATION_PER_TILE) {
-          double tile_delta_time = delta_time - tile_start_time;
-          double tint_strength =
-              std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);
+ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) {
+  double now = ImGui::GetTime();
 
-          // Accentuate X with red tint, O with green tint
-          double tint_val = 1 - tint_strength;
-          if (game_.get_cell(r, c) == PLAYER_X) {
-            return ImVec4(1, tint_val, tint_val, 1);
-          } else if (game_.get_cell(r, c) == PLAYER_O) {
-            return ImVec4(tint_val, 1, tint_val, 1);
-          }
-        }
+  // Iterate through start times for cell
+  for (double tint_start : tint_start_times_[r][c]) {
+    // Check if tile's tint is in progress
+    if (tint_start <= now && now <= tint_start + TINT_DURATION_PER_TILE) {
+      double tile_delta_time = now - tint_start;
+      double tint_strength =
+          std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);
+
+      // Accentuate X with red tint, O with green tint
+      double tint_val = 1 - tint_strength;
+      if (game_.get_cell(r, c) == PLAYER_X) {
+        return ImVec4(1, tint_val, tint_val, 1);
+      } else if (game_.get_cell(r, c) == PLAYER_O) {
+        return ImVec4(tint_val, 1, tint_val, 1);
       }
     }
   }
+
+  // Remove old tint times that have finished
+  auto& times = tint_start_times_[r][c];
+  times.erase(std::remove_if(times.begin(), times.end(),
+                             [now](double tint_start) {
+                               return tint_start + TINT_DURATION_PER_TILE < now;
+                             }),
+              times.end());
 
   return ImVec4(1, 1, 1, 1);
 }
@@ -529,7 +525,7 @@ ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) const {
 //////////////////////////////////////////////////////////////
 
 PVPScene::PVPScene(unsigned board_dimension, unsigned in_a_row,
-                   AudioContext *audio_ctx, TextureContext *tex_ctx)
+                   AudioContext* audio_ctx, TextureContext* tex_ctx)
     : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx) {}
 
 std::string PVPScene::get_game_label() const {
@@ -550,13 +546,15 @@ std::string PVPScene::get_game_label() const {
 //////////////////////////////////////////////////////////////
 
 PVBScene::PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
-                   bool player_x, bool iddfs, AudioContext *audio_ctx,
-                   TextureContext *tex_ctx)
-    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx), depth_(depth),
+                   bool player_x, bool iddfs, AudioContext* audio_ctx,
+                   TextureContext* tex_ctx)
+    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx),
+      depth_(depth),
       player_x_(player_x) {
   bot_ = std::make_unique<Bot>(board_dimension, in_a_row, depth, iddfs);
 }
 
+constexpr double MIN_BOT_MOVE_TIME = 0.5;
 void PVBScene::pre_draw() {
   if (game_.get_result() != Result::NOT_OVER) {
     return;
@@ -571,8 +569,10 @@ void PVBScene::pre_draw() {
         return bot_->get_move(board, bot_player, false);
       });
       bot_thinking_ = true;
+      bot_move_start_time_ = ImGui::GetTime();
     } else if (bot_future_.wait_for(std::chrono::seconds(0)) ==
-               std::future_status::ready) {
+                   std::future_status::ready &&
+               ImGui::GetTime() - bot_move_start_time_ > MIN_BOT_MOVE_TIME) {
       // Bot finished, make move
       make_move_wrapper(bot_future_.get());
       bot_thinking_ = false;
