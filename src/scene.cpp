@@ -419,6 +419,7 @@ SceneType GameScene::make_action_buttons(const ImVec2& display_size,
                    btn_size)) {
     on_reset();
     game_.reset();
+    tint_start_times_.clear();
   }
 
   ImGui::SetCursorPos({btn_x + btn_size.x + btn_gap, btn_y});
@@ -439,10 +440,6 @@ void GameScene::make_board_buttons(const ImVec2& display_size, float min_dim) {
   float board_x = (display_size.x - board_size) / 2;
   float board_y = (display_size.y - board_size) / 2;
 
-  float img_padding = cell_size * 0.1f;
-  float img_size = cell_size - (2 * img_padding);
-  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {img_padding, img_padding});
-
   // Create buttons
   float step = cell_size * (1 + gap_to_cell_ratio);
   for (unsigned r = 0; r < dim; r++) {
@@ -456,22 +453,30 @@ void GameScene::make_board_buttons(const ImVec2& display_size, float min_dim) {
           make_move_wrapper(r, c);
         }
       } else {
+        GameScene::CellEmphasis emphasis = get_cell_emphasis(r, c);
+        float img_size = cell_size * emphasis.size_factor;
+        float img_padding = cell_size * (1 - emphasis.size_factor) / 2;
+
         ImTextureID tex =
             (ImTextureID)(intptr_t)(cell == PLAYER_X ? tex_ctx_->x_tex
                                                      : tex_ctx_->o_tex);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding,
+                            {img_padding, img_padding});
         ImGui::ImageButton("img", tex, {img_size, img_size}, {0, 0}, {1, 1},
-                           {0, 0, 0, 0}, get_tile_tint(r, c));
+                           {0, 0, 0, 0}, emphasis.tint);
+        ImGui::PopStyleVar();
       }
       ImGui::PopID();
     }
   }
-
-  ImGui::PopStyleVar();
 }
 
 static constexpr double TINT_DELTA_TIME = 0.25;  // seconds between tile tints
 static constexpr double TINT_DURATION_PER_TILE =
     TINT_DELTA_TIME * 2;  // no tint -> full tint (halfway) -> no tint
+static constexpr float BASE_ICON_IMG_SIZE =
+    0.8f;  // Icon images are scaled to this fraction of cell size;
 
 void GameScene::make_move_wrapper(unsigned r, unsigned c) {
   bool is_scoring = game_.make_move(r, c);
@@ -488,7 +493,7 @@ void GameScene::make_move_wrapper(unsigned r, unsigned c) {
   }
 }
 
-ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) {
+GameScene::CellEmphasis GameScene::get_cell_emphasis(unsigned r, unsigned c) {
   double now = ImGui::GetTime();
 
   // Iterate through start times for cell
@@ -497,27 +502,21 @@ ImVec4 GameScene::get_tile_tint(unsigned r, unsigned c) {
     if (tint_start <= now && now <= tint_start + TINT_DURATION_PER_TILE) {
       double tile_delta_time = now - tint_start;
       double tint_strength =
-          std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);
+          std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);  // [0,1]
+      double size_factor =
+          BASE_ICON_IMG_SIZE + 0.8 * tint_strength * (1 - BASE_ICON_IMG_SIZE);
 
       // Accentuate X with red tint, O with green tint
       double tint_val = 1 - tint_strength;
       if (game_.get_cell(r, c) == PLAYER_X) {
-        return ImVec4(1, tint_val, tint_val, 1);
+        return {ImVec4(1, tint_val, tint_val, 1), size_factor};
       } else if (game_.get_cell(r, c) == PLAYER_O) {
-        return ImVec4(tint_val, 1, tint_val, 1);
+        return {ImVec4(tint_val, 1, tint_val, 1), size_factor};
       }
     }
   }
 
-  // Remove old tint times that have finished
-  auto& times = tint_start_times_[r][c];
-  times.erase(std::remove_if(times.begin(), times.end(),
-                             [now](double tint_start) {
-                               return tint_start + TINT_DURATION_PER_TILE < now;
-                             }),
-              times.end());
-
-  return ImVec4(1, 1, 1, 1);
+  return {ImVec4(1, 1, 1, 1), BASE_ICON_IMG_SIZE};
 }
 
 //////////////////////////////////////////////////////////////

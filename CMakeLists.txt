@@ -71,6 +71,7 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_include_directories(OngoingTicTacToe PRIVATE ${UI_INCLUDES})
     target_link_libraries(OngoingTicTacToe PRIVATE glfw GL pthread dl)
     target_compile_options(OngoingTicTacToe PRIVATE -O3)
+    target_link_options(OngoingTicTacToe PRIVATE -s)
 
     add_executable(OngoingTicTacToe-debug EXCLUDE_FROM_ALL
         app/main.cpp

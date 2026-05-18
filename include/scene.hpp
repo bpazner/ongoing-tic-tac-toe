@@ -87,7 +87,11 @@ class GameScene : public Scene {
   SceneType make_action_buttons(const ImVec2& display_size, float min_dim);
   void make_board_buttons(const ImVec2& display_size, float min_dim);
 
-  ImVec4 get_tile_tint(unsigned r, unsigned c);
+  struct CellEmphasis {
+    ImVec4 tint;
+    double size_factor;
+  };
+  CellEmphasis get_cell_emphasis(unsigned r, unsigned c);
 };
 
 // Two-player local game

@@ -41,7 +41,7 @@ static bool load_sound_mem(ma_engine* engine, const char* name,
 static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
                        ma_sound* slider, ma_sound* tile, AudioContext& ctx) {
   ma_engine_config engine_cfg = ma_engine_config_init();
-  engine_cfg.periodSizeInMilliseconds = 10;
+  engine_cfg.periodSizeInMilliseconds = 15;
   if (ma_engine_init(&engine_cfg, engine) != MA_SUCCESS) {
     fprintf(stderr,
             "Failed to initialize audio engine, continuing without audio\n");
