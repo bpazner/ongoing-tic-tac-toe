@@ -6,7 +6,7 @@
 
 #include "miniaudio.h"
 
-static void play_sfx(ma_sound* sound, float volume) {
+static void play_sfx(ma_sound *sound, float volume) {
   if (!sound) {
     return;
   }
@@ -15,8 +15,8 @@ static void play_sfx(ma_sound* sound, float volume) {
   ma_sound_start(sound);
 }
 
-static bool sound_button(ma_sound* sound, float sfx_volume, const char* label,
-                         const ImVec2& size = {0, 0}) {
+static bool sound_button(ma_sound *sound, float sfx_volume, const char *label,
+                         const ImVec2 &size = {0, 0}) {
   bool clicked = ImGui::Button(label, size);
   if (clicked && sound) {
     play_sfx(sound, sfx_volume);
@@ -24,7 +24,7 @@ static bool sound_button(ma_sound* sound, float sfx_volume, const char* label,
   return clicked;
 }
 
-static bool sound_slider(AudioContext* ctx, const char* label, int* v,
+static bool sound_slider(AudioContext *ctx, const char *label, int *v,
                          int v_min, int v_max) {
   bool changed = ImGui::SliderInt(label, v, v_min, v_max);
   if (changed && ctx) {
@@ -139,7 +139,7 @@ SceneType MenuScene::draw() {
   return next_scene;
 }
 
-void MenuScene::make_gamemode_buttons(const ImVec2& display_size,
+void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
                                       float min_dim) {
   ImVec2 mode_btn_size = {min_dim * 0.4f, min_dim * 0.08f};
   float mode_gap = min_dim * 0.01f;
@@ -181,7 +181,7 @@ void MenuScene::make_gamemode_buttons(const ImVec2& display_size,
   pop(pvb);
 }
 
-void MenuScene::make_dimension_slider(const ImVec2& display_size,
+void MenuScene::make_dimension_slider(const ImVec2 &display_size,
                                       float min_dim) {
   // Make slider (min dimension - max dimension)
   float dim_slider_w = min_dim * 0.4f;
@@ -196,7 +196,7 @@ void MenuScene::make_dimension_slider(const ImVec2& display_size,
                MIN_BOARD_DIMENSION, MAX_BOARD_DIMENSION);
 }
 
-void MenuScene::make_in_a_row_slider(const ImVec2& display_size,
+void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
                                      float min_dim) {
   // Clamp in-a-row to current dimension
   in_a_row_ = std::min(in_a_row_, board_dimension_);
@@ -214,7 +214,7 @@ void MenuScene::make_in_a_row_slider(const ImVec2& display_size,
                board_dimension_);
 }
 
-void MenuScene::make_difficulty_slider(const ImVec2& display_size,
+void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
                                        float min_dim) {
   // Make slider (1 - 5), depth scales as difficulty * 2
   float slider_w = min_dim * 0.4f;
@@ -231,7 +231,7 @@ void MenuScene::make_difficulty_slider(const ImVec2& display_size,
                       std::log(1.0 * board_dimension_ * board_dimension_));
 }
 
-void MenuScene::make_player_side_buttons(const ImVec2& display_size,
+void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
                                          float min_dim) {
   // Three buttons: X, O, Random
   ImVec2 btn_size = {min_dim * 0.13f, min_dim * 0.06f};
@@ -291,9 +291,8 @@ void MenuScene::make_player_side_buttons(const ImVec2& display_size,
 //////////////////////////////////////////////////////////////
 
 GameScene::GameScene(unsigned board_dimension, unsigned in_a_row,
-                     AudioContext* audio_ctx, TextureContext* tex_ctx)
-    : Scene(audio_ctx, tex_ctx),
-      game_(board_dimension, in_a_row),
+                     AudioContext *audio_ctx, TextureContext *tex_ctx)
+    : Scene(audio_ctx, tex_ctx), game_(board_dimension, in_a_row),
       tint_start_times_(board_dimension,
                         std::vector<std::vector<double>>(board_dimension)) {}
 
@@ -326,7 +325,7 @@ SceneType GameScene::draw() {
 }
 
 // Renders a label at (x, y), coloring X red and O green
-static void render_label_colored(const std::string& label, float x, float y) {
+static void render_label_colored(const std::string &label, float x, float y) {
   constexpr ImVec4 red = {1.0f, 0.3f, 0.3f, 1.0f};
   constexpr ImVec4 green = {0.3f, 1.0f, 0.3f, 1.0f};
 
@@ -334,7 +333,7 @@ static void render_label_colored(const std::string& label, float x, float y) {
   size_t start = 0;
 
   // Position first segment at (x, y), chain the rest with SameLine
-  auto emit = [&](const char* text, const ImVec4* color) {
+  auto emit = [&](const char *text, const ImVec4 *color) {
     if (first) {
       ImGui::SetCursorPos({x, y});
       first = false;
@@ -366,7 +365,7 @@ static void render_label_colored(const std::string& label, float x, float y) {
   }
 }
 
-void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
+void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {
   float label_y = display_size.y * 0.1f;
   constexpr float score_scale = 2.0f;
 
@@ -390,7 +389,7 @@ void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
   std::string game_label_base = game_label;
   while (!game_label_base.empty() && game_label_base.back() == '.') {
     game_label_base.pop_back();
-  }  // Ignore "..." when positioning label
+  } // Ignore "..." when positioning label
   float game_label_w = ImGui::CalcTextSize(game_label_base.c_str()).x;
   render_label_colored(game_label, (display_size.x - game_label_w) / 2,
                        label_y);
@@ -405,7 +404,7 @@ void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
   ImGui::SetWindowFontScale(1.0f);
 }
 
-SceneType GameScene::make_action_buttons(const ImVec2& display_size,
+SceneType GameScene::make_action_buttons(const ImVec2 &display_size,
                                          float min_dim) {
   // Play again and return to menu buttons
   ImVec2 btn_size = {min_dim * 0.3f, min_dim * 0.08f};
@@ -431,7 +430,7 @@ SceneType GameScene::make_action_buttons(const ImVec2& display_size,
   return SceneType::NONE;
 }
 
-void GameScene::make_board_buttons(const ImVec2& display_size, float min_dim) {
+void GameScene::make_board_buttons(const ImVec2 &display_size, float min_dim) {
   unsigned dim = game_.get_board_dimension();
 
   float board_size = min_dim * 0.6f;
@@ -472,11 +471,11 @@ void GameScene::make_board_buttons(const ImVec2& display_size, float min_dim) {
   }
 }
 
-static constexpr double TINT_DELTA_TIME = 0.25;  // seconds between tile tints
+static constexpr double TINT_DELTA_TIME = 0.25; // seconds between tile tints
 static constexpr double TINT_DURATION_PER_TILE =
-    TINT_DELTA_TIME * 2;  // no tint -> full tint (halfway) -> no tint
+    TINT_DELTA_TIME * 2; // no tint -> full tint (halfway) -> no tint
 static constexpr float BASE_ICON_IMG_SIZE =
-    0.8f;  // Icon images are scaled to this fraction of cell size;
+    0.8f; // Icon images are scaled to this fraction of cell size;
 
 void GameScene::make_move_wrapper(unsigned r, unsigned c) {
   bool is_scoring = game_.make_move(r, c);
@@ -502,7 +501,7 @@ GameScene::CellEmphasis GameScene::get_cell_emphasis(unsigned r, unsigned c) {
     if (tint_start <= now && now <= tint_start + TINT_DURATION_PER_TILE) {
       double tile_delta_time = now - tint_start;
       double tint_strength =
-          std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE);  // [0,1]
+          std::sin(M_PI * tile_delta_time / TINT_DURATION_PER_TILE); // [0,1]
       double size_factor =
           BASE_ICON_IMG_SIZE + 0.8 * tint_strength * (1 - BASE_ICON_IMG_SIZE);
 
@@ -524,7 +523,7 @@ GameScene::CellEmphasis GameScene::get_cell_emphasis(unsigned r, unsigned c) {
 //////////////////////////////////////////////////////////////
 
 PVPScene::PVPScene(unsigned board_dimension, unsigned in_a_row,
-                   AudioContext* audio_ctx, TextureContext* tex_ctx)
+                   AudioContext *audio_ctx, TextureContext *tex_ctx)
     : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx) {}
 
 std::string PVPScene::get_game_label() const {
@@ -545,12 +544,18 @@ std::string PVPScene::get_game_label() const {
 //////////////////////////////////////////////////////////////
 
 PVBScene::PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
-                   bool player_x, bool iddfs, AudioContext* audio_ctx,
-                   TextureContext* tex_ctx)
-    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx),
-      depth_(depth),
+                   bool player_x, bool iddfs, AudioContext *audio_ctx,
+                   TextureContext *tex_ctx)
+    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx), depth_(depth),
       player_x_(player_x) {
-  bot_ = std::make_unique<Bot>(board_dimension, in_a_row, depth, iddfs);
+  bot_ = std::make_shared<Bot>(board_dimension, in_a_row, depth, iddfs);
+}
+
+PVBScene::~PVBScene() {
+  if (bot_thinking_ && bot_future_.valid()) {
+    // Detach so the destructor doesn't block the main thread
+    std::thread([f = std::move(bot_future_)]() mutable { f.get(); }).detach();
+  }
 }
 
 constexpr double MIN_BOT_MOVE_TIME = 0.5;
@@ -564,8 +569,8 @@ void PVBScene::pre_draw() {
       // Launch bot computation on a background thread
       char bot_player = player_x_ ? PLAYER_O : PLAYER_X;
       auto board = game_.get_board();
-      bot_future_ = std::async(std::launch::async, [this, bot_player, board] {
-        return bot_->get_move(board, bot_player, false);
+      bot_future_ = std::async(std::launch::async, [bot = bot_, bot_player, board] {
+        return bot->get_move(board, bot_player, false);
       });
       bot_thinking_ = true;
       bot_move_start_time_ = ImGui::GetTime();

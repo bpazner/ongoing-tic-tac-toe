@@ -1,6 +1,7 @@
 #pragma once
 
 #include <future>
+#include <thread>
 #include <memory>
 
 #include "bot.hpp"
@@ -114,6 +115,8 @@ class PVBScene : public GameScene {
            bool player_x, bool iddfs, AudioContext* audio_ctx,
            TextureContext* tex_ctx);
 
+  ~PVBScene();
+
  protected:
   void pre_draw() override;
   std::string get_game_label() const override;
@@ -124,7 +127,7 @@ class PVBScene : public GameScene {
   void on_reset() override { bot_thinking_ = false; }
 
  private:
-  std::unique_ptr<Bot> bot_;
+  std::shared_ptr<Bot> bot_;
   std::future<unsigned> bot_future_;
   unsigned depth_;
   bool player_x_;
