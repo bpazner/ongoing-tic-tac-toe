@@ -177,9 +177,9 @@ int main() {
   AudioContext audio_ctx;
   init_audio(&audio, &bgm, &button_snd, &slider_snd, &tile_snd, audio_ctx);
 
-  // Start on menu scene
-  std::unique_ptr<Scene> scene =
-      std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
+  // Persistent menu, reused between games
+  auto menu = std::make_shared<MenuScene>(&audio_ctx, &tex_ctx);
+  std::shared_ptr<Scene> scene = menu;
 
   while (!glfwWindowShouldClose(window)) {
     // Handle input events
@@ -203,10 +203,9 @@ int main() {
     // Draw current scene, handle transitions
     SceneType next = scene->draw();
     if (next == SceneType::GAME) {
-      auto* menu = static_cast<MenuScene*>(scene.get());
       if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
         // Player vs player
-        scene = std::make_unique<PVPScene>(menu->get_board_dimension(),
+        scene = std::make_shared<PVPScene>(menu->get_board_dimension(),
                                            menu->get_in_a_row(), &audio_ctx,
                                            &tex_ctx);
       } else if (menu->get_gamemode() == Gamemode::PLAYER_VS_BOT) {
@@ -219,17 +218,17 @@ int main() {
         } else {
           player_x = menu->get_player_side() == PlayerSide::X;
         }
-        scene = std::make_unique<PVBScene>(
+        scene = std::make_shared<PVBScene>(
             menu->get_board_dimension(), menu->get_in_a_row(),
             menu->get_depth1(), player_x, &audio_ctx, &tex_ctx);
       } else if (menu->get_gamemode() == Gamemode::BOT_VS_BOT) {
         // Bot vs bot
-        scene = std::make_unique<BVBScene>(
+        scene = std::make_shared<BVBScene>(
             menu->get_board_dimension(), menu->get_in_a_row(),
             menu->get_depth1(), menu->get_depth2(), &audio_ctx, &tex_ctx);
       }
     } else if (next == SceneType::MENU) {
-      scene = std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
+      scene = menu;
     } else if (next == SceneType::QUIT) {
       glfwSetWindowShouldClose(window, GLFW_TRUE);
     }

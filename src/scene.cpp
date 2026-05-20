@@ -225,6 +225,8 @@ void MenuScene::make_gamemode_dropdown(const ImVec2& display_size,
     for (int i = 0; i < IM_ARRAYSIZE(items); i++) {
       if (ImGui::Selectable(items[i], (int)gamemode_ == i)) {
         gamemode_ = (Gamemode)i;
+        // Play sound on selection
+        play_sfx(audio_ctx_->button, audio_ctx_->sfx_volume);
       }
     }
     ImGui::EndCombo();
