@@ -205,11 +205,14 @@ int main() {
     if (next == SceneType::GAME) {
       auto* menu = static_cast<MenuScene*>(scene.get());
       if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
+        // Player vs player
         scene = std::make_unique<PVPScene>(menu->get_board_dimension(),
                                            menu->get_in_a_row(), &audio_ctx,
                                            &tex_ctx);
       } else if (menu->get_gamemode() == Gamemode::PLAYER_VS_BOT) {
+        // Player vs bot
         bool player_x;
+        // Check random player condition
         if (menu->get_player_side() == PlayerSide::RANDOM) {
           std::mt19937 rng{std::random_device{}()};
           player_x = std::uniform_int_distribution<int>(0, 1)(rng);
@@ -218,7 +221,12 @@ int main() {
         }
         scene = std::make_unique<PVBScene>(
             menu->get_board_dimension(), menu->get_in_a_row(),
-            menu->get_depth1(), player_x, false, &audio_ctx, &tex_ctx);
+            menu->get_depth1(), player_x, &audio_ctx, &tex_ctx);
+      } else if (menu->get_gamemode() == Gamemode::BOT_VS_BOT) {
+        // Bot vs bot
+        scene = std::make_unique<BVBScene>(
+            menu->get_board_dimension(), menu->get_in_a_row(),
+            menu->get_depth1(), menu->get_depth2(), &audio_ctx, &tex_ctx);
       }
     } else if (next == SceneType::MENU) {
       scene = std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);

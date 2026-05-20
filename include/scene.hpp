@@ -1,8 +1,8 @@
 #pragma once
 
 #include <future>
-#include <thread>
 #include <memory>
+#include <thread>
 
 #include "bot.hpp"
 #include "game.hpp"
@@ -46,17 +46,18 @@ class MenuScene : public Scene {
   void make_gamemode_dropdown(const ImVec2& display_size, float min_dim);
   void make_dimension_slider(const ImVec2& display_size, float min_dim);
   void make_in_a_row_slider(const ImVec2& display_size, float min_dim);
-  void make_difficulty_slider(const ImVec2 &display_size, float min_dim, bool is_first_slider);
+  void make_difficulty_slider(const ImVec2& display_size, float min_dim,
+                              bool is_first_slider);
   void make_player_side_buttons(const ImVec2& display_size, float min_dim);
 
-  Gamemode gamemode_;
+  Gamemode gamemode_ = Gamemode::PLAYER_VS_PLAYER;
   PlayerSide player_side_ = PlayerSide::X;
   int board_dimension_ = MIN_BOARD_DIMENSION;
   int in_a_row_ = MIN_TARGET;
   int difficulty1_ = 1;
   int difficulty2_ = 1;
-  int depth1_;
-  int depth2_;
+  int depth1_ = 1;
+  int depth2_ = 1;
 };
 
 // Renders the board, scores, and action buttons,
@@ -111,13 +112,11 @@ class PVPScene : public GameScene {
   }
 };
 
-// Player vs bot; bot moves run asynchronously so the UI stays responsive
+// Player vs bot, bot moves run asynchronously so the UI stays responsive
 class PVBScene : public GameScene {
  public:
   PVBScene(unsigned board_dimension, unsigned in_a_row, unsigned depth,
-           bool player_x, bool iddfs, AudioContext* audio_ctx,
-           TextureContext* tex_ctx);
-
+           bool player_x, AudioContext* audio_ctx, TextureContext* tex_ctx);
   ~PVBScene();
 
  protected:
@@ -134,6 +133,29 @@ class PVBScene : public GameScene {
   std::future<unsigned> bot_future_;
   unsigned depth_;
   bool player_x_;
+  bool bot_thinking_ = false;
+  double bot_move_start_time_;
+};
+
+// Bot vs bot, bots run asynchronously so the UI stays responsive
+class BVBScene : public GameScene {
+ public:
+  BVBScene(unsigned board_dimension, unsigned in_a_row, unsigned x_depth,
+           unsigned o_depth, AudioContext* audio_ctx, TextureContext* tex_ctx);
+  ~BVBScene();
+
+ protected:
+  void pre_draw() override;
+  std::string get_game_label() const override;
+  bool can_move() const override {
+    return false;  // Human cannot make moves in this mode
+  }
+  void on_reset() override { bot_thinking_ = false; }
+
+ private:
+  std::shared_ptr<Bot> x_bot_;
+  std::shared_ptr<Bot> o_bot_;
+  std::future<unsigned> bot_future_;
   bool bot_thinking_ = false;
   double bot_move_start_time_;
 };
