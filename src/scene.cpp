@@ -6,6 +6,10 @@
 
 #include "miniaudio.h"
 
+//////////////////////////////////////////////////////////////
+// HELPER FUNCTIONS
+//////////////////////////////////////////////////////////////
+
 static void play_sfx(ma_sound *sound, float volume) {
   if (!sound) {
     return;
@@ -31,6 +35,47 @@ static bool sound_slider(AudioContext *ctx, const char *label, int *v,
     play_sfx(ctx->slider, ctx->sfx_volume);
   }
   return changed;
+}
+
+// Renders a label at (x, y), coloring X red and O green
+static void render_label_colored(const std::string &label, float x, float y) {
+  constexpr ImVec4 red = {1.0f, 0.3f, 0.3f, 1.0f};
+  constexpr ImVec4 green = {0.3f, 1.0f, 0.3f, 1.0f};
+
+  bool first = true;
+  size_t start = 0;
+
+  // Position first segment at (x, y), chain the rest with SameLine
+  auto emit = [&](const char *text, const ImVec4 *color) {
+    if (first) {
+      ImGui::SetCursorPos({x, y});
+      first = false;
+    } else {
+      ImGui::SameLine(0, 0);
+    }
+    if (color) {
+      ImGui::TextColored(*color, "%s", text);
+    } else {
+      ImGui::Text("%s", text);
+    }
+  };
+
+  // Walk the string, flushing plain segments before each colored character
+  for (size_t i = 0; i <= label.size(); i++) {
+    char c = i < label.size() ? label[i] : '\0';
+    if (c == PLAYER_X || c == PLAYER_O || i == label.size()) {
+      if (i > start) {
+        emit(label.substr(start, i - start).c_str(), nullptr);
+      }
+      if (c == PLAYER_X) {
+        emit("X", &red);
+        start = i + 1;
+      } else if (c == PLAYER_O) {
+        emit("O", &green);
+        start = i + 1;
+      }
+    }
+  }
 }
 
 //////////////////////////////////////////////////////////////
@@ -100,7 +145,7 @@ SceneType MenuScene::draw() {
   make_volume_control(min_dim);
 
   // Gamemode buttons
-  make_gamemode_buttons(display_size, min_dim);
+  make_gamemode_dropdown(display_size, min_dim);
 
   // Board dimension slider
   make_dimension_slider(display_size, min_dim);
@@ -109,15 +154,22 @@ SceneType MenuScene::draw() {
   make_in_a_row_slider(display_size, min_dim);
 
   // Bot-only options
-  if (gamemode_ == Gamemode::PLAYER_VS_BOT) {
-    make_difficulty_slider(display_size, min_dim);
-    make_player_side_buttons(display_size, min_dim);
+  if (gamemode_ != Gamemode::PLAYER_VS_PLAYER) {
+    // First slider (guaranteed bot)
+    make_difficulty_slider(display_size, min_dim, true);
+    if (gamemode_ == Gamemode::BOT_VS_BOT) {
+      // Second slider (only for bot vs bot)
+      make_difficulty_slider(display_size, min_dim, false);
+    }
+    if (gamemode_ == Gamemode::PLAYER_VS_BOT) {
+      make_player_side_buttons(display_size, min_dim);
+    }
   }
 
   // Play and quit buttons centered side by side
   ImVec2 btn_size = {min_dim * 0.15f, min_dim * 0.07f};
   float btn_gap = min_dim * 0.02f;
-  float btn_y = gamemode_ == Gamemode::PLAYER_VS_BOT ? 0.77f : 0.57f;
+  float btn_y = gamemode_ != Gamemode::PLAYER_VS_PLAYER ? 0.77f : 0.57f;
   float btn_y_px = display_size.y * btn_y;
   float btn_total_w = btn_size.x * 2 + btn_gap;
   float btn_x = (display_size.x - btn_total_w) / 2;
@@ -139,46 +191,42 @@ SceneType MenuScene::draw() {
   return next_scene;
 }
 
-void MenuScene::make_gamemode_buttons(const ImVec2 &display_size,
+void MenuScene::make_gamemode_dropdown(const ImVec2 &display_size,
                                       float min_dim) {
-  ImVec2 mode_btn_size = {min_dim * 0.4f, min_dim * 0.08f};
-  float mode_gap = min_dim * 0.01f;
-  float mode_total_w = mode_btn_size.x * 2 + mode_gap;
-  float mode_x = (display_size.x - mode_total_w) / 2;
-  float mode_y = display_size.y * 0.25f;
+  static const char *items[] = {"Player vs Player", "Player vs Bot",
+                                "Bot vs Bot"};
+  const char *preview = items[(int)gamemode_];
 
-  auto highlight = [](bool active) {
-    if (active) {
-      ImGui::PushStyleColor(ImGuiCol_Button,
-                            ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
+  float combo_w = min_dim * 0.45f;
+  float combo_h = min_dim * 0.08f;
+  float combo_y = display_size.y * 0.25f;
+  ImGui::SetCursorPos({(display_size.x - combo_w) / 2, combo_y});
+  ImGui::SetNextItemWidth(combo_w);
+
+  // Fixed vertical padding for consistent box height
+  float pad_y = (combo_h - ImGui::GetTextLineHeight()) / 2;
+  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {0.0f, pad_y});
+
+  // Pass empty preview, draw centered text manually after
+  bool open = ImGui::BeginCombo("##gamemode", "");
+  ImGui::PopStyleVar();
+
+  // Draw centered preview text
+  float arrow_w = ImGui::GetFrameHeight();
+  float text_w = ImGui::CalcTextSize(preview).x;
+  ImVec2 text_pos = {(display_size.x - combo_w) / 2 + (combo_w - arrow_w - text_w) / 2,
+                     combo_y + (combo_h - ImGui::GetTextLineHeight()) / 2};
+  ImGui::GetForegroundDrawList()->AddText(text_pos, ImGui::GetColorU32(ImGuiCol_Text), preview);
+  
+  // Draw dropdown options (not centered)
+  if (open) {
+    for (int i = 0; i < IM_ARRAYSIZE(items); i++) {
+      if (ImGui::Selectable(items[i], (int)gamemode_ == i)) {
+        gamemode_ = (Gamemode)i;
+      }
     }
-  };
-  auto pop = [](bool active) {
-    if (active) {
-      ImGui::PopStyleColor();
-    }
-  };
-
-  bool pvp = gamemode_ == Gamemode::PLAYER_VS_PLAYER;
-  bool pvb = gamemode_ == Gamemode::PLAYER_VS_BOT;
-
-  // Player vs player button
-  ImGui::SetCursorPos({mode_x, mode_y});
-  highlight(pvp);
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume,
-                   "Player vs Player", mode_btn_size)) {
-    gamemode_ = Gamemode::PLAYER_VS_PLAYER;
+    ImGui::EndCombo();
   }
-  pop(pvp);
-
-  // Player vs bot button
-  ImGui::SetCursorPos({mode_x + mode_btn_size.x + mode_gap, mode_y});
-  highlight(pvb);
-  if (sound_button(audio_ctx_->button, audio_ctx_->sfx_volume, "Player vs Bot",
-                   mode_btn_size)) {
-    gamemode_ = Gamemode::PLAYER_VS_BOT;
-  }
-  pop(pvb);
 }
 
 void MenuScene::make_dimension_slider(const ImVec2 &display_size,
@@ -215,20 +263,41 @@ void MenuScene::make_in_a_row_slider(const ImVec2 &display_size,
 }
 
 void MenuScene::make_difficulty_slider(const ImVec2 &display_size,
-                                       float min_dim) {
-  // Make slider (1 - 5), depth scales as difficulty * 2
+                                       float min_dim, bool is_first_slider) {
+  // Calculate label and y according to gamemode and slider number
+  std::string label = "Bot Difficulty";
+  float slider_y = display_size.y * 0.55f;
+  if (gamemode_ == Gamemode::BOT_VS_BOT) {
+    label = (is_first_slider ? "X-" : "O-") + label;
+    slider_y = display_size.y * (is_first_slider ? 0.55f : 0.65f);
+  }
+  
+  // Render slider label
+  float label_w = ImGui::CalcTextSize(label.c_str()).x;
+  render_label_colored(label, (display_size.x - label_w) / 2, slider_y);
+
+  // Make slider (1 - 5)
   float slider_w = min_dim * 0.4f;
   float slider_x = (display_size.x - slider_w) / 2;
-  float label_w = ImGui::CalcTextSize("Bot Difficulty").x;
-  ImGui::SetCursorPos({(display_size.x - label_w) / 2, display_size.y * 0.55f});
-  ImGui::Text("Bot Difficulty");
   ImGui::SetCursorPosX(slider_x);
   ImGui::SetNextItemWidth(slider_w);
 
-  // Get difficulty and set depth
-  sound_slider(audio_ctx_, "##bot_difficulty", &difficulty_, 1, 5);
-  depth_ = std::round(3 * difficulty_ /
+  if (gamemode_ == Gamemode::PLAYER_VS_BOT) {
+    sound_slider(audio_ctx_, "##bot_difficulty", &difficulty1_, 1, 5);
+    depth1_ = std::round(3 * difficulty1_ /
                       std::log(1.0 * board_dimension_ * board_dimension_));
+  } else if (gamemode_ == Gamemode::BOT_VS_BOT) {
+    if (is_first_slider) {
+      sound_slider(audio_ctx_, "##bot1_difficulty", &difficulty1_, 1, 5);
+      depth1_ = std::round(3 * difficulty1_ /
+                        std::log(1.0 * board_dimension_ * board_dimension_));
+    } else {
+      sound_slider(audio_ctx_, "##bot2_difficulty", &difficulty2_, 1, 5);
+      depth2_ = std::round(3 * difficulty2_ /
+                        std::log(1.0 * board_dimension_ * board_dimension_));
+    }
+  }
+
 }
 
 void MenuScene::make_player_side_buttons(const ImVec2 &display_size,
@@ -322,47 +391,6 @@ SceneType GameScene::draw() {
 
   ImGui::End();
   return SceneType::NONE;
-}
-
-// Renders a label at (x, y), coloring X red and O green
-static void render_label_colored(const std::string &label, float x, float y) {
-  constexpr ImVec4 red = {1.0f, 0.3f, 0.3f, 1.0f};
-  constexpr ImVec4 green = {0.3f, 1.0f, 0.3f, 1.0f};
-
-  bool first = true;
-  size_t start = 0;
-
-  // Position first segment at (x, y), chain the rest with SameLine
-  auto emit = [&](const char *text, const ImVec4 *color) {
-    if (first) {
-      ImGui::SetCursorPos({x, y});
-      first = false;
-    } else {
-      ImGui::SameLine(0, 0);
-    }
-    if (color) {
-      ImGui::TextColored(*color, "%s", text);
-    } else {
-      ImGui::Text("%s", text);
-    }
-  };
-
-  // Walk the string, flushing plain segments before each colored character
-  for (size_t i = 0; i <= label.size(); i++) {
-    char c = i < label.size() ? label[i] : '\0';
-    if (c == PLAYER_X || c == PLAYER_O || i == label.size()) {
-      if (i > start) {
-        emit(label.substr(start, i - start).c_str(), nullptr);
-      }
-      if (c == PLAYER_X) {
-        emit("X", &red);
-        start = i + 1;
-      } else if (c == PLAYER_O) {
-        emit("O", &green);
-        start = i + 1;
-      }
-    }
-  }
 }
 
 void GameScene::make_header_labels(const ImVec2 &display_size, float min_dim) {

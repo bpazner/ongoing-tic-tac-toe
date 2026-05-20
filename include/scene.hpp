@@ -10,7 +10,7 @@
 #include "utils.hpp"
 
 enum class SceneType { NONE, MENU, GAME, QUIT };
-enum class Gamemode { PLAYER_VS_PLAYER, PLAYER_VS_BOT };
+enum class Gamemode { PLAYER_VS_PLAYER, PLAYER_VS_BOT, BOT_VS_BOT };
 enum class PlayerSide { X, O, RANDOM };
 
 // Base class for all scenes, returns the next SceneType each frame
@@ -39,21 +39,24 @@ class MenuScene : public Scene {
   PlayerSide get_player_side() const { return player_side_; }
   int get_board_dimension() const { return board_dimension_; };
   int get_in_a_row() const { return in_a_row_; };
-  int get_depth() const { return depth_; }
+  int get_depth1() const { return depth1_; }
+  int get_depth2() const { return depth2_; }
 
  private:
-  void make_gamemode_buttons(const ImVec2& display_size, float min_dim);
+  void make_gamemode_dropdown(const ImVec2& display_size, float min_dim);
   void make_dimension_slider(const ImVec2& display_size, float min_dim);
   void make_in_a_row_slider(const ImVec2& display_size, float min_dim);
-  void make_difficulty_slider(const ImVec2& display_size, float min_dim);
+  void make_difficulty_slider(const ImVec2 &display_size, float min_dim, bool is_first_slider);
   void make_player_side_buttons(const ImVec2& display_size, float min_dim);
 
   Gamemode gamemode_;
   PlayerSide player_side_ = PlayerSide::X;
   int board_dimension_ = MIN_BOARD_DIMENSION;
   int in_a_row_ = MIN_TARGET;
-  int difficulty_ = 1;
-  int depth_;
+  int difficulty1_ = 1;
+  int difficulty2_ = 1;
+  int depth1_;
+  int depth2_;
 };
 
 // Renders the board, scores, and action buttons,

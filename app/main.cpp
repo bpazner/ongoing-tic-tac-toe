@@ -40,9 +40,7 @@ static bool load_sound_mem(ma_engine* engine, const char* name,
 // Initializes the audio engine and loads all sounds from embedded data
 static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
                        ma_sound* slider, ma_sound* tile, AudioContext& ctx) {
-  ma_engine_config engine_cfg = ma_engine_config_init();
-  engine_cfg.periodSizeInMilliseconds = 15;
-  if (ma_engine_init(&engine_cfg, engine) != MA_SUCCESS) {
+  if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
     fprintf(stderr,
             "Failed to initialize audio engine, continuing without audio\n");
     return;
@@ -210,7 +208,7 @@ int main() {
         scene = std::make_unique<PVPScene>(menu->get_board_dimension(),
                                            menu->get_in_a_row(), &audio_ctx,
                                            &tex_ctx);
-      } else {
+      } else if (menu->get_gamemode() == Gamemode::PLAYER_VS_BOT) {
         bool player_x;
         if (menu->get_player_side() == PlayerSide::RANDOM) {
           std::mt19937 rng{std::random_device{}()};
@@ -220,7 +218,7 @@ int main() {
         }
         scene = std::make_unique<PVBScene>(
             menu->get_board_dimension(), menu->get_in_a_row(),
-            menu->get_depth(), player_x, false, &audio_ctx, &tex_ctx);
+            menu->get_depth1(), player_x, false, &audio_ctx, &tex_ctx);
       }
     } else if (next == SceneType::MENU) {
       scene = std::make_unique<MenuScene>(&audio_ctx, &tex_ctx);
