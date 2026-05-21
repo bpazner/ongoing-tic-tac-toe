@@ -39,7 +39,8 @@ static bool load_sound_mem(ma_engine* engine, const char* name,
 
 // Initializes the audio engine and loads all sounds from embedded data
 static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
-                       ma_sound* slider, ma_sound* tile, AudioContext& ctx) {
+                       ma_sound* slider, ma_sound* tile,
+                       ma_sound* game_completed, AudioContext& ctx) {
   if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
     fprintf(stderr,
             "Failed to initialize audio engine, continuing without audio\n");
@@ -64,6 +65,11 @@ static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
   if (load_sound_mem(engine, "tile", tile_mp3, tile_mp3_len,
                      MA_SOUND_FLAG_DECODE, tile)) {
     ctx.tile = tile;
+  }
+  if (load_sound_mem(engine, "game_completed", game_completed_mp3,
+                     game_completed_mp3_len, MA_SOUND_FLAG_DECODE,
+                     game_completed)) {
+    ctx.game_completed = game_completed;
   }
 }
 
@@ -173,9 +179,10 @@ int main() {
 
   // Init audio engine and sounds
   ma_engine audio;
-  ma_sound bgm, button_snd, slider_snd, tile_snd;
+  ma_sound bgm, button_snd, slider_snd, tile_snd, game_completed_snd;
   AudioContext audio_ctx;
-  init_audio(&audio, &bgm, &button_snd, &slider_snd, &tile_snd, audio_ctx);
+  init_audio(&audio, &bgm, &button_snd, &slider_snd, &tile_snd,
+             &game_completed_snd, audio_ctx);
 
   // Persistent menu, reused between games
   auto menu = std::make_shared<MenuScene>(&audio_ctx, &tex_ctx);

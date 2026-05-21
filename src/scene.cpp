@@ -528,6 +528,11 @@ void GameScene::make_move_wrapper(unsigned r, unsigned c) {
                                                          i * TINT_DELTA_TIME);
     }
   }
+
+  // Check if game ended, play sound
+  if (game_.get_result() != Result::NOT_OVER) {
+    play_sfx(audio_ctx_->game_completed, audio_ctx_->sfx_volume);
+  }
 }
 
 GameScene::CellEmphasis GameScene::get_cell_emphasis(unsigned r, unsigned c) {

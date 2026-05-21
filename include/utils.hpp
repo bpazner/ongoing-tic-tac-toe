@@ -16,11 +16,12 @@ struct ma_engine;
 struct ma_sound;
 
 struct AudioContext {
-  ma_engine *engine = nullptr;
-  ma_sound *bgm = nullptr;
-  ma_sound *button = nullptr;
-  ma_sound *slider = nullptr;
-  ma_sound *tile = nullptr;
+  ma_engine* engine = nullptr;
+  ma_sound* bgm = nullptr;
+  ma_sound* button = nullptr;
+  ma_sound* slider = nullptr;
+  ma_sound* tile = nullptr;
+  ma_sound* game_completed = nullptr;
   float bgm_volume = 0.5f;
   float sfx_volume = 0.5f;
 };
@@ -39,8 +40,8 @@ struct TextureContext {
 
 // Timing
 #define GET_TIME (std::chrono::high_resolution_clock::now())
-#define GET_ELAPSED(a, b)                                                      \
-  (std::chrono::duration_cast<std::chrono::milliseconds>(b - a).count() /      \
+#define GET_ELAPSED(a, b)                                                 \
+  (std::chrono::duration_cast<std::chrono::milliseconds>(b - a).count() / \
    1000.0)
 
 // Game board
@@ -55,25 +56,25 @@ constexpr unsigned NO_MOVES = ~0u;
 // Helper functions
 
 void print_progress_bar(
-    const std::chrono::_V2::system_clock::time_point &start_time,
+    const std::chrono::_V2::system_clock::time_point& start_time,
     double percent, unsigned width = 100, char full = '#', char empty = '_');
 
-void print_board(const std::vector<char> &board, unsigned board_dimension);
+void print_board(const std::vector<char>& board, unsigned board_dimension);
 
 std::vector<char> random_board(unsigned board_dimension,
                                double prob_x = 1.0 / 3,
                                double prob_y = 1.0 / 3);
 
-int64_t get_score(const std::vector<char> &board, unsigned board_dimension,
+int64_t get_score(const std::vector<char>& board, unsigned board_dimension,
                   unsigned in_a_row, char player);
 
-std::vector<unsigned> get_empty_locs(const std::vector<char> &board,
+std::vector<unsigned> get_empty_locs(const std::vector<char>& board,
                                      unsigned board_dimension);
 
 // Returns (row, col) center of mass of non-empty cells on the board
-std::pair<double, double>
-get_center_of_mass(const std::vector<char> &board, unsigned board_dimension,
-                   const std::vector<unsigned> &empty_locs);
+std::pair<double, double> get_center_of_mass(
+    const std::vector<char>& board, unsigned board_dimension,
+    const std::vector<unsigned>& empty_locs);
 
 double dist_squared(double r1, double c1, double r2, double c2);
 

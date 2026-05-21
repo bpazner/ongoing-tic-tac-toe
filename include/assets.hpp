@@ -26,3 +26,6 @@ extern unsigned int music_icon_png_len;
 
 extern unsigned char sfx_icon_png[];
 extern unsigned int sfx_icon_png_len;
+
+extern unsigned char game_completed_mp3[];
+extern unsigned int game_completed_mp3_len;
