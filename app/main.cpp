@@ -41,19 +41,27 @@ static bool load_sound_mem(ma_engine* engine, const char* name,
 static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
                        ma_sound* slider, ma_sound* tile,
                        ma_sound* game_completed, AudioContext& ctx) {
-  if (ma_engine_init(nullptr, engine) != MA_SUCCESS) {
+  // Initialize engine
+  ma_engine_config cfg = ma_engine_config_init();
+  cfg.periodSizeInMilliseconds = 10;
+  if (ma_engine_init(&cfg, engine) != MA_SUCCESS) {
     fprintf(stderr,
             "Failed to initialize audio engine, continuing without audio\n");
     return;
   }
   ctx.engine = engine;
+
+  // Load background music
   if (load_sound_mem(engine, "bgm", bossa_nova_background_mp3,
-                     bossa_nova_background_mp3_len, 0, bgm)) {
+                     bossa_nova_background_mp3_len, MA_SOUND_FLAG_DECODE,
+                     bgm)) {
     ma_sound_set_looping(bgm, MA_TRUE);
     ma_sound_set_volume(bgm, BASE_BGM_VOLUME);
     ma_sound_start(bgm);
     ctx.bgm = bgm;
   }
+
+  // Load sound effects
   if (load_sound_mem(engine, "button", button_mp3, button_mp3_len,
                      MA_SOUND_FLAG_DECODE, button)) {
     ctx.button = button;

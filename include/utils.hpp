@@ -9,8 +9,8 @@
 #include <vector>
 
 // UI/Audio
-constexpr float BASE_BGM_VOLUME = 0.25f;
-constexpr float BASE_SFX_VOLUME = 0.5f;
+constexpr float BASE_BGM_VOLUME = 1.0f;
+constexpr float BASE_SFX_VOLUME = 2.0f * BASE_BGM_VOLUME;
 
 struct ma_engine;
 struct ma_sound;
