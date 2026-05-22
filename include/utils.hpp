@@ -33,6 +33,7 @@ struct TextureContext {
   unsigned int sfx_tex = 0;
   unsigned int x_tex = 0;
   unsigned int o_tex = 0;
+  unsigned int speed_tex = 0;
 };
 
 // Console colors

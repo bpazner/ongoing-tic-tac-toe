@@ -92,7 +92,7 @@ void Scene::make_volume_control(float min_dim) {
   float center_y_off = (icon_size - ImGui::GetFrameHeight()) / 2;
 
   // Style sliders
-  ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, slider_w / 16);
+  ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, min_dim * 0.0125f);
   ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1, 1, 1, 1));
   ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.8f, 0.8f, 0.8f, 1));
   ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.3f, 0.3f, 0.3f, 1));
@@ -394,6 +394,7 @@ SceneType GameScene::draw() {
 
   make_volume_control(min_dim);
   make_header_labels(display_size, min_dim);
+  draw_bot_speed_slider(display_size, min_dim);  // Only for bot game modes
   make_board_buttons(display_size, min_dim);
 
   SceneType next = make_action_buttons(display_size, min_dim);
@@ -418,13 +419,7 @@ void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
   render_label_colored(target_label, (display_size.x - target_label_w) / 2,
                        label_y - display_size.y * 0.05f);
 
-  // X score on the left, scaled up
-  ImGui::SetWindowFontScale(score_scale);
-  std::string x_score_str = "X: " + std::to_string(game_.get_x_score());
-  render_label_colored(x_score_str, display_size.x * 0.15f,
-                       label_y + display_size.y * 0.05f);
-
-  // Game label in the center (normal scale), X red and O green
+  // Centered, game label (normal scale), X red and O green
   ImGui::SetWindowFontScale(1.0f);
   std::string game_label = get_game_label();
   std::string game_label_base = game_label;
@@ -435,13 +430,17 @@ void GameScene::make_header_labels(const ImVec2& display_size, float min_dim) {
   render_label_colored(game_label, (display_size.x - game_label_w) / 2,
                        label_y);
 
-  // O score on the right, scaled up
+  // X score on the left, scaled up
   ImGui::SetWindowFontScale(score_scale);
+  std::string x_score_str = "X: " + std::to_string(game_.get_x_score());
+  render_label_colored(x_score_str, display_size.x * 0.15f,
+                       label_y + display_size.y * 0.05f);
+
+  // O score on the right, scaled up
   std::string o_score_str = "O: " + std::to_string(game_.get_o_score());
   float o_score_w = ImGui::CalcTextSize(o_score_str.c_str()).x;
   render_label_colored(o_score_str, display_size.x * 0.85f - o_score_w,
                        label_y + display_size.y * 0.05f);
-
   ImGui::SetWindowFontScale(1.0f);
 }
 
@@ -611,7 +610,6 @@ PVBScene::~PVBScene() {
   }
 }
 
-constexpr double MIN_BOT_MOVE_TIME = 0.5;
 void PVBScene::pre_draw() {
   if (game_.get_result() != Result::NOT_OVER) {
     return;
@@ -630,7 +628,7 @@ void PVBScene::pre_draw() {
       bot_move_start_time_ = ImGui::GetTime();
     } else if (bot_future_.wait_for(std::chrono::seconds(0)) ==
                    std::future_status::ready &&
-               ImGui::GetTime() - bot_move_start_time_ > MIN_BOT_MOVE_TIME) {
+               ImGui::GetTime() - bot_move_start_time_ > get_min_bot_time()) {
       // Bot finished, make move
       make_move_wrapper(bot_future_.get());
       bot_thinking_ = false;
@@ -716,7 +714,7 @@ void BVBScene::pre_draw() {
     bot_move_start_time_ = ImGui::GetTime();
   } else if (bot_future_.wait_for(std::chrono::seconds(0)) ==
                  std::future_status::ready &&
-             ImGui::GetTime() - bot_move_start_time_ > MIN_BOT_MOVE_TIME) {
+             ImGui::GetTime() - bot_move_start_time_ > get_min_bot_time()) {
     // Bot finished, make move
     make_move_wrapper(bot_future_.get());
     bot_thinking_ = false;
@@ -740,4 +738,32 @@ std::string BVBScene::get_game_label() const {
     return "Bot/" + std::string(1, char_turn) + " is thinking" +
            std::string(dots, '.');
   }
+}
+
+void BVBScene::draw_bot_speed_slider(const ImVec2& display_size,
+                                     float min_dim) {
+  // Draw speed icon
+  float icon_size = min_dim * 0.025f;
+  float slider_w = min_dim * 0.3f;
+  float start_x = (display_size.x - slider_w) / 2 - icon_size;
+  float y = display_size.y * 0.15f;
+  ImGui::SetCursorPos({start_x, y});
+  ImGui::Image((ImTextureID)(intptr_t)tex_ctx_->speed_tex,
+               {icon_size, icon_size});
+
+  // Style slider
+  ImGui::PushStyleVar(ImGuiStyleVar_GrabMinSize, min_dim * 0.0125f);
+  ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1, 1, 1, 1));
+  ImGui::PushStyleColor(ImGuiCol_SliderGrabActive, ImVec4(0.8f, 0.8f, 0.8f, 1));
+  ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.3f, 0.3f, 0.3f, 1));
+  ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.4f, 0.4f, 0.4f, 1));
+
+  // Draw slider
+  float center_y_off = (icon_size - ImGui::GetFrameHeight()) / 2;
+  ImGui::SetCursorPos(
+      {start_x + icon_size + min_dim * 0.01f, y + center_y_off});
+  ImGui::SetNextItemWidth(slider_w);
+  ImGui::SliderFloat("##bot_speed", &bot_speed_, 0.0f, 1.0f, "");
+  ImGui::PopStyleVar(1);
+  ImGui::PopStyleColor(4);
 }

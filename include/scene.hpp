@@ -75,6 +75,11 @@ class GameScene : public Scene {
   virtual std::string get_game_label() const { return ""; }
   virtual bool can_move() const { return true; }
 
+  float bot_speed_ = 0.5f;
+  virtual void draw_bot_speed_slider(const ImVec2& display_size,
+                                     float min_dim) {}
+  float get_min_bot_time() const { return 1.0f - bot_speed_; }
+
   // Makes move and updates tint times for any scoring cells
   void make_move_wrapper(unsigned r, unsigned c);
   void make_move_wrapper(unsigned loc) {
@@ -153,6 +158,8 @@ class BVBScene : public GameScene {
     return false;  // Human cannot make moves in this mode
   }
   void on_reset() override { bot_thinking_ = false; }
+
+  void draw_bot_speed_slider(const ImVec2&, float) override;
 
  private:
   std::shared_ptr<Bot> x_bot_;

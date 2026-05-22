@@ -195,6 +195,7 @@ int main() {
   tex_ctx.sfx_tex = load_texture(sfx_icon_png, sfx_icon_png_len);
   tex_ctx.x_tex = load_texture(x_icon_png, x_icon_png_len);
   tex_ctx.o_tex = load_texture(o_icon_png, o_icon_png_len);
+  tex_ctx.speed_tex = load_texture(speed_icon_png, speed_icon_png_len);
 
   // Init audio engine and sounds
   ma_engine audio;
