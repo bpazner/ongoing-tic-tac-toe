@@ -9,8 +9,8 @@
 #include <vector>
 
 // UI/Audio
-constexpr float BASE_BGM_VOLUME = 1.0f;
-constexpr float BASE_SFX_VOLUME = 2.0f * BASE_BGM_VOLUME;
+constexpr float BASE_BGM_VOLUME = 0.5f;
+constexpr float BASE_SFX_VOLUME = 2 * BASE_BGM_VOLUME;
 
 struct ma_engine;
 struct ma_sound;
@@ -21,7 +21,9 @@ struct AudioContext {
   ma_sound* button = nullptr;
   ma_sound* slider = nullptr;
   ma_sound* tile = nullptr;
-  ma_sound* game_completed = nullptr;
+  ma_sound* game_end_win = nullptr;
+  ma_sound* game_end_lose = nullptr;
+  ma_sound* game_end_tie = nullptr;
   float bgm_volume = 0.5f;
   float sfx_volume = 0.5f;
 };

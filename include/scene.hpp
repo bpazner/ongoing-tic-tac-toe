@@ -71,6 +71,7 @@ class GameScene : public Scene {
  protected:
   virtual void pre_draw() {}
   virtual void on_reset() {}
+  virtual void play_game_end_sfx();
   virtual std::string get_game_label() const { return ""; }
   virtual bool can_move() const { return true; }
 
@@ -121,6 +122,7 @@ class PVBScene : public GameScene {
 
  protected:
   void pre_draw() override;
+  void play_game_end_sfx() override;
   std::string get_game_label() const override;
   bool can_move() const override {
     return game_.get_result() == Result::NOT_OVER &&

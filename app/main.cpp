@@ -39,8 +39,9 @@ static bool load_sound_mem(ma_engine* engine, const char* name,
 
 // Initializes the audio engine and loads all sounds from embedded data
 static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
-                       ma_sound* slider, ma_sound* tile,
-                       ma_sound* game_completed, AudioContext& ctx) {
+                       ma_sound* slider, ma_sound* tile, ma_sound* game_end_win,
+                       ma_sound* game_end_lose, ma_sound* game_end_tie,
+                       AudioContext& ctx) {
   // Initialize engine
   ma_engine_config cfg = ma_engine_config_init();
   cfg.periodSizeInMilliseconds = 10;
@@ -74,10 +75,20 @@ static void init_audio(ma_engine* engine, ma_sound* bgm, ma_sound* button,
                      MA_SOUND_FLAG_DECODE, tile)) {
     ctx.tile = tile;
   }
-  if (load_sound_mem(engine, "game_completed", game_completed_mp3,
-                     game_completed_mp3_len, MA_SOUND_FLAG_DECODE,
-                     game_completed)) {
-    ctx.game_completed = game_completed;
+  if (load_sound_mem(engine, "game_end_win", game_end_win_mp3,
+                     game_end_win_mp3_len, MA_SOUND_FLAG_DECODE,
+                     game_end_win)) {
+    ctx.game_end_win = game_end_win;
+  }
+  if (load_sound_mem(engine, "game_end_lose", game_end_lose_mp3,
+                     game_end_lose_mp3_len, MA_SOUND_FLAG_DECODE,
+                     game_end_lose)) {
+    ctx.game_end_lose = game_end_lose;
+  }
+  if (load_sound_mem(engine, "game_end_tie", game_end_tie_mp3,
+                     game_end_tie_mp3_len, MA_SOUND_FLAG_DECODE,
+                     game_end_tie)) {
+    ctx.game_end_tie = game_end_tie;
   }
 }
 
@@ -187,10 +198,12 @@ int main() {
 
   // Init audio engine and sounds
   ma_engine audio;
-  ma_sound bgm, button_snd, slider_snd, tile_snd, game_completed_snd;
+  ma_sound bgm, button_snd, slider_snd, tile_snd, game_end_win_snd,
+      game_end_lose_snd, game_end_tie_snd;
   AudioContext audio_ctx;
   init_audio(&audio, &bgm, &button_snd, &slider_snd, &tile_snd,
-             &game_completed_snd, audio_ctx);
+             &game_end_win_snd, &game_end_lose_snd, &game_end_tie_snd,
+             audio_ctx);
 
   // Persistent menu, reused between games
   auto menu = std::make_shared<MenuScene>(&audio_ctx, &tex_ctx);

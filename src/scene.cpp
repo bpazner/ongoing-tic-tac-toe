@@ -369,6 +369,15 @@ GameScene::GameScene(unsigned board_dimension, unsigned in_a_row,
       tint_start_times_(board_dimension,
                         std::vector<std::vector<double>>(board_dimension)) {}
 
+void GameScene::play_game_end_sfx() {
+  if (game_.get_result() == Result::X_WIN ||
+      game_.get_result() == Result::O_WIN) {
+    play_sfx(audio_ctx_->game_end_win, audio_ctx_->sfx_volume);
+  } else if (game_.get_result() == Result::TIE) {
+    play_sfx(audio_ctx_->game_end_tie, audio_ctx_->sfx_volume);
+  }
+}
+
 SceneType GameScene::draw() {
   // Create window
   ImGui::SetNextWindowPos({0, 0});
@@ -531,7 +540,7 @@ void GameScene::make_move_wrapper(unsigned r, unsigned c) {
 
   // Check if game ended, play sound
   if (game_.get_result() != Result::NOT_OVER) {
-    play_sfx(audio_ctx_->game_completed, audio_ctx_->sfx_volume);
+    play_game_end_sfx();
   }
 }
 
@@ -629,6 +638,17 @@ void PVBScene::pre_draw() {
       // Play tile sound
       play_sfx(audio_ctx_->tile, audio_ctx_->sfx_volume);
     }
+  }
+}
+
+void PVBScene::play_game_end_sfx() {
+  if (player_x_ && game_.get_result() == Result::X_WIN ||
+      !player_x_ && game_.get_result() == Result::O_WIN) {
+    play_sfx(audio_ctx_->game_end_win, audio_ctx_->sfx_volume);
+  } else if (game_.get_result() == Result::TIE) {
+    play_sfx(audio_ctx_->game_end_tie, audio_ctx_->sfx_volume);
+  } else if (game_.get_result() != Result::NOT_OVER) {
+    play_sfx(audio_ctx_->game_end_lose, audio_ctx_->sfx_volume);
   }
 }
 
