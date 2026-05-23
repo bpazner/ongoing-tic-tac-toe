@@ -232,12 +232,12 @@ int main() {
     // Draw current scene, handle transitions
     SceneType next = scene->draw();
     if (next == SceneType::GAME) {
-      if (menu->get_gamemode() == Gamemode::PLAYER_VS_PLAYER) {
+      if (menu->get_gamemode() == Gamemode::LOCAL_MULTIPLAYER) {
         // Player vs player
         scene = std::make_shared<PVPScene>(menu->get_board_dimension(),
                                            menu->get_in_a_row(), &audio_ctx,
                                            &tex_ctx);
-      } else if (menu->get_gamemode() == Gamemode::PLAYER_VS_BOT) {
+      } else if (menu->get_gamemode() == Gamemode::AGAINST_BOT) {
         // Player vs bot
         bool player_x;
         // Check random player condition

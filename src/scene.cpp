@@ -154,14 +154,14 @@ SceneType MenuScene::draw() {
   make_in_a_row_slider(display_size, min_dim);
 
   // Bot-only options
-  if (gamemode_ != Gamemode::PLAYER_VS_PLAYER) {
+  if (gamemode_ != Gamemode::LOCAL_MULTIPLAYER) {
     // First slider (guaranteed bot)
     make_difficulty_slider(display_size, min_dim, true);
     if (gamemode_ == Gamemode::BOT_VS_BOT) {
       // Second slider (only for bot vs bot)
       make_difficulty_slider(display_size, min_dim, false);
     }
-    if (gamemode_ == Gamemode::PLAYER_VS_BOT) {
+    if (gamemode_ == Gamemode::AGAINST_BOT) {
       make_player_side_buttons(display_size, min_dim);
     }
   }
@@ -169,7 +169,7 @@ SceneType MenuScene::draw() {
   // Play and quit buttons centered side by side
   ImVec2 btn_size = {min_dim * 0.15f, min_dim * 0.07f};
   float btn_gap = min_dim * 0.02f;
-  float btn_y = gamemode_ != Gamemode::PLAYER_VS_PLAYER ? 0.77f : 0.57f;
+  float btn_y = gamemode_ != Gamemode::LOCAL_MULTIPLAYER ? 0.77f : 0.57f;
   float btn_y_px = display_size.y * btn_y;
   float btn_total_w = btn_size.x * 2 + btn_gap;
   float btn_x = (display_size.x - btn_total_w) / 2;
@@ -193,7 +193,7 @@ SceneType MenuScene::draw() {
 
 void MenuScene::make_gamemode_dropdown(const ImVec2& display_size,
                                        float min_dim) {
-  static const char* items[] = {"Player vs Player", "Player vs Bot",
+  static const char* items[] = {"Local Multiplayer", "Against Bot",
                                 "Bot vs Bot"};
   const char* preview = items[(int)gamemode_];
 
@@ -286,7 +286,7 @@ void MenuScene::make_difficulty_slider(const ImVec2& display_size,
   ImGui::SetCursorPosX(slider_x);
   ImGui::SetNextItemWidth(slider_w);
 
-  if (gamemode_ == Gamemode::PLAYER_VS_BOT) {
+  if (gamemode_ == Gamemode::AGAINST_BOT) {
     sound_slider(audio_ctx_, "##bot_difficulty", &difficulty1_, 1, 5);
     depth1_ = std::round(3 * difficulty1_ /
                          std::log(1.0 * board_dimension_ * board_dimension_));

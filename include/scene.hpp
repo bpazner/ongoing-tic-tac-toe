@@ -10,7 +10,7 @@
 #include "utils.hpp"
 
 enum class SceneType { NONE, MENU, GAME, QUIT };
-enum class Gamemode { PLAYER_VS_PLAYER, PLAYER_VS_BOT, BOT_VS_BOT };
+enum class Gamemode { LOCAL_MULTIPLAYER, AGAINST_BOT, BOT_VS_BOT };
 enum class PlayerSide { X, O, RANDOM };
 
 // Base class for all scenes, returns the next SceneType each frame
@@ -50,7 +50,7 @@ class MenuScene : public Scene {
                               bool is_first_slider);
   void make_player_side_buttons(const ImVec2& display_size, float min_dim);
 
-  Gamemode gamemode_ = Gamemode::PLAYER_VS_PLAYER;
+  Gamemode gamemode_ = Gamemode::LOCAL_MULTIPLAYER;
   PlayerSide player_side_ = PlayerSide::X;
   int board_dimension_ = MIN_BOARD_DIMENSION;
   int in_a_row_ = MIN_TARGET;
