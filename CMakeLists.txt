@@ -83,8 +83,22 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(OngoingTicTacToe-debug PRIVATE glfw GL pthread dl)
     target_compile_options(OngoingTicTacToe-debug PRIVATE -O0 -g)
 
+    add_executable(MultiplayerServer
+        app/multiplayer_server.cpp
+    )
+    target_include_directories(MultiplayerServer PRIVATE ${COMMON_INCLUDES})
+    target_link_libraries(MultiplayerServer PRIVATE pthread)
+    target_compile_options(MultiplayerServer PRIVATE -O3)
+
+    add_executable(MultiplayerServer-debug EXCLUDE_FROM_ALL
+        app/multiplayer_server.cpp
+    )
+    target_include_directories(MultiplayerServer-debug PRIVATE ${COMMON_INCLUDES})
+    target_link_libraries(MultiplayerServer-debug PRIVATE pthread)
+    target_compile_options(MultiplayerServer-debug PRIVATE -O0 -g)
+
     add_custom_target(debug
-        DEPENDS OngoingTicTacToe-debug
+        DEPENDS OngoingTicTacToe-debug MultiplayerServer-debug
     )
 endif()
 
