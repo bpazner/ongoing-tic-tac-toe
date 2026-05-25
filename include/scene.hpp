@@ -132,21 +132,23 @@ class PVPOnlineScene : public GameScene {
   PVPOnlineScene(const char* server_address, unsigned board_dimension,
                  unsigned in_a_row, AudioContext* audio_ctx,
                  TextureContext* tex_ctx);
+  ~PVPOnlineScene();
 
  protected:
-  void pre_draw() override {}
+  void pre_draw() override;
   void play_game_end_sfx() override {}
   std::string get_game_label() const override;
   bool can_move() const override {
-    return game_.get_result() == Result::NOT_OVER &&
+    return role_assigned_ && game_.get_result() == Result::NOT_OVER &&
            game_.get_x_turn() == player_x_;
   }
   void on_reset() override {};
 
  private:
   const char* server_address_;
-  bool player_x_;
   int sock_ = -1;
+  bool player_x_ = false;
+  bool role_assigned_ = false;
 };
 
 // Player vs bot, bot moves run asynchronously so the UI stays responsive

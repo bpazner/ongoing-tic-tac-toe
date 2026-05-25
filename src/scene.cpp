@@ -675,14 +675,42 @@ PVPOnlineScene::PVPOnlineScene(const char* server_address,
   freeaddrinfo(res);
   printf("Connected to %s:%d\n", host.c_str(), port);
 
-  // Get player role from server (X or O)
-  char role = 0;
-  recv(sock_, &role, 1, MSG_WAITALL);
-  player_x_ = (role == 'X');
-  printf("You are player %c\n", role);
+  // Send game settings to server for matchmaking
+  uint8_t settings[2] = {(uint8_t)board_dimension, (uint8_t)in_a_row};
+  send(sock_, settings, sizeof(settings), 0);
+}
+
+PVPOnlineScene::~PVPOnlineScene() {
+  // Disconnect from server
+  if (sock_ >= 0) {
+    close(sock_);
+  }
+}
+
+void PVPOnlineScene::pre_draw() {
+  if (sock_ < 0) {
+    return;
+  }
+
+  if (!role_assigned_) {
+    // Wait for server to send role byte ('X' or 'O')
+    char role;
+    ssize_t n = recv(sock_, &role, 1, MSG_DONTWAIT);
+    if (n == 1) {
+      player_x_ = (role == PLAYER_X);
+      role_assigned_ = true;
+      printf("Assigned role: %c\n", role);
+    }
+    return;
+  }
 }
 
 std::string PVPOnlineScene::get_game_label() const {
+  if (!role_assigned_) {
+    int dots = (int)(ImGui::GetTime() * 4) % 4;
+    return sock_ < 0 ? "Failed to connect"
+                     : "Waiting for opponent" + std::string(dots, '.');
+  }
   Result result = game_.get_result();
   if (result == Result::X_WIN) {
     return "X: " + std::string(player_x_ ? "You win!" : "Opponent wins...");
