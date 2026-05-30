@@ -2,7 +2,7 @@
 
 A desktop tic-tac-toe game where play continues after scoring, rewarding repeated streaks.
 
-<img width="1756" height="1150" alt="Ongoing Tic-Tac-Toe" src="https://github.com/user-attachments/assets/6e7e0e96-0d5d-4b8e-8ae4-a148ac3b8efb" />
+<img width="1718" height="1072" alt="Ongoing Tic-Tac-Toe" src="https://github.com/user-attachments/assets/b3919502-076d-4859-9878-8dedd98d8cea" />
 
 ### Features
 
