@@ -3,10 +3,23 @@
 A desktop tic-tac-toe game with configurable board size and win condition.
 
 ### Features
-- Player vs Player and Player vs Bot modes
-- Configurable board dimension and target in-a-row
-- Adjustable bot difficulty
-- Background music and sound effects
+
+**Gameplay**
+  - 3 game modes: Local Multiplayer, Player vs Bot, Bot vs Bot
+  - Configurable board size and win target (in-a-row)
+  - Choose to play as X, O, or random side
+  - Persistent scores across rounds
+
+**AI**
+  - Adjustable difficulty (1–5)
+  - Bot speed control in Bot vs Bot mode
+  - Non-blocking: UI stays responsive while the bot thinks
+
+**UI**
+  - Animated tile highlight on winning streaks
+  - Color-coded X (red) and O (green) throughout
+  - Separate background music and SFX volume sliders
+  - Scales to window size
 
 ### Running
 
