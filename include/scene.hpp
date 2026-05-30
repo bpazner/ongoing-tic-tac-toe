@@ -10,12 +10,7 @@
 #include "utils.hpp"
 
 enum class SceneType { NONE, MENU, GAME, QUIT };
-enum class Gamemode {
-  LOCAL_MULTIPLAYER,
-  ONLINE_MULTIPLAYER,
-  AGAINST_BOT,
-  BOT_VS_BOT
-};
+enum class Gamemode { LOCAL_MULTIPLAYER, AGAINST_BOT, BOT_VS_BOT };
 enum class PlayerSide { X, O, RANDOM };
 
 // Base class for all scenes, returns the next SceneType each frame
@@ -44,7 +39,6 @@ class MenuScene : public Scene {
   PlayerSide get_player_side() const { return player_side_; }
   int get_board_dimension() const { return board_dimension_; };
   int get_in_a_row() const { return in_a_row_; }
-  const char* get_server_address() const { return server_address_; }
   int get_depth1() const { return depth1_; }
   int get_depth2() const { return depth2_; }
 
@@ -52,7 +46,6 @@ class MenuScene : public Scene {
   void make_gamemode_dropdown(const ImVec2& display_size, float min_dim);
   void make_dimension_slider(const ImVec2& display_size, float min_dim);
   void make_in_a_row_slider(const ImVec2& display_size, float min_dim);
-  void make_server_input(const ImVec2& display_size, float min_dim);
   void make_difficulty_slider(const ImVec2& display_size, float min_dim,
                               bool is_first_slider);
   void make_player_side_buttons(const ImVec2& display_size, float min_dim);
@@ -61,7 +54,6 @@ class MenuScene : public Scene {
   PlayerSide player_side_ = PlayerSide::X;
   int board_dimension_ = MIN_BOARD_DIMENSION;
   int in_a_row_ = MIN_TARGET;
-  char server_address_[256] = "localhost:12345";
   int difficulty1_ = 1;
   int difficulty2_ = 1;
   int depth1_ = 1;
@@ -124,31 +116,6 @@ class PVPLocalScene : public GameScene {
   bool can_move() const override {
     return game_.get_result() == Result::NOT_OVER;
   }
-};
-
-// Two-player online game
-class PVPOnlineScene : public GameScene {
- public:
-  PVPOnlineScene(const char* server_address, unsigned board_dimension,
-                 unsigned in_a_row, AudioContext* audio_ctx,
-                 TextureContext* tex_ctx);
-  ~PVPOnlineScene();
-
- protected:
-  void pre_draw() override;
-  void play_game_end_sfx() override {}
-  std::string get_game_label() const override;
-  bool can_move() const override {
-    return role_assigned_ && game_.get_result() == Result::NOT_OVER &&
-           game_.get_x_turn() == player_x_;
-  }
-  void on_reset() override {};
-
- private:
-  const char* server_address_;
-  int sock_ = -1;
-  bool player_x_ = false;
-  bool role_assigned_ = false;
 };
 
 // Player vs bot, bot moves run asynchronously so the UI stays responsive

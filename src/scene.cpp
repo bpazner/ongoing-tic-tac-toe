@@ -1,10 +1,5 @@
 #include "scene.hpp"
 
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
 #include <algorithm>
 #include <chrono>
 #include <future>
@@ -165,11 +160,6 @@ SceneType MenuScene::draw() {
   // In-a-row slider
   make_in_a_row_slider(display_size, min_dim);
 
-  // Online multiplayer server input
-  if (gamemode_ == Gamemode::ONLINE_MULTIPLAYER) {
-    make_server_input(display_size, min_dim);
-  }
-
   // Bot-only options
   if (gamemode_ == Gamemode::AGAINST_BOT || gamemode_ == Gamemode::BOT_VS_BOT) {
     // First slider (guaranteed bot)
@@ -188,10 +178,7 @@ SceneType MenuScene::draw() {
   float btn_gap = min_dim * 0.02f;
 
   float btn_y = 0.57f;
-  if (gamemode_ == Gamemode::ONLINE_MULTIPLAYER) {
-    btn_y = 0.67f;
-  } else if (gamemode_ == Gamemode::AGAINST_BOT ||
-             gamemode_ == Gamemode::BOT_VS_BOT) {
+  if (gamemode_ == Gamemode::AGAINST_BOT || gamemode_ == Gamemode::BOT_VS_BOT) {
     btn_y = 0.77f;
   }
 
@@ -218,8 +205,8 @@ SceneType MenuScene::draw() {
 
 void MenuScene::make_gamemode_dropdown(const ImVec2& display_size,
                                        float min_dim) {
-  static const char* items[] = {"Local Multiplayer", "Online Multiplayer",
-                                "Against Bot", "Bot vs Bot"};
+  static const char* items[] = {"Local Multiplayer", "Against Bot",
+                                "Bot vs Bot"};
   const char* preview = items[(int)gamemode_];
 
   float combo_w = min_dim * 0.5f;
@@ -289,25 +276,6 @@ void MenuScene::make_in_a_row_slider(const ImVec2& display_size,
   ImGui::SetNextItemWidth(target_slider_w);
   sound_slider(audio_ctx_, "##in_a_row", &in_a_row_, MIN_TARGET,
                board_dimension_);
-}
-
-void MenuScene::make_server_input(const ImVec2& display_size, float min_dim) {
-  float input_w = min_dim * 0.4f;
-  float input_x = (display_size.x - input_w) / 2;
-  float label_w = ImGui::CalcTextSize("Server Address").x;
-  float pad = min_dim * 0.008f;
-
-  ImGui::SetCursorPos({(display_size.x - label_w) / 2, display_size.y * 0.55f});
-  ImGui::Text("Server Address");
-  ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, {pad, pad});
-  ImGui::SetCursorPosX(input_x);
-  ImGui::SetNextItemWidth(input_w);
-
-  if (ImGui::InputText("##server_address", server_address_, 256)) {
-    play_sfx(audio_ctx_->button, audio_ctx_->sfx_volume);
-  }
-
-  ImGui::PopStyleVar();
 }
 
 void MenuScene::make_difficulty_slider(const ImVec2& display_size,
@@ -631,100 +599,6 @@ std::string PVPLocalScene::get_game_label() const {
     return "Tie...";
   } else {
     return game_.get_x_turn() ? "Player X's turn" : "Player O's turn";
-  }
-}
-
-//////////////////////////////////////////////////////////////
-// PVP ONLINE SCENE
-//////////////////////////////////////////////////////////////
-
-PVPOnlineScene::PVPOnlineScene(const char* server_address,
-                               unsigned board_dimension, unsigned in_a_row,
-                               AudioContext* audio_ctx, TextureContext* tex_ctx)
-    : GameScene(board_dimension, in_a_row, audio_ctx, tex_ctx),
-      server_address_(server_address) {
-  // Parse host and port from "host:port"
-  std::string addr_str(server_address);
-  std::string host = addr_str;
-  int port = 12345;
-  size_t colon = addr_str.rfind(':');
-  if (colon != std::string::npos) {
-    host = addr_str.substr(0, colon);
-    port = std::stoi(addr_str.substr(colon + 1));
-  }
-
-  // Resolve hostname and connect
-  addrinfo hints{}, *res = nullptr;
-  hints.ai_family = AF_INET;
-  hints.ai_socktype = SOCK_STREAM;
-  if (getaddrinfo(host.c_str(), std::to_string(port).c_str(), &hints, &res) !=
-      0) {
-    fprintf(stderr, "Failed to resolve server address: %s\n", server_address);
-    return;
-  }
-  sock_ = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-  if (sock_ < 0 || connect(sock_, res->ai_addr, res->ai_addrlen) < 0) {
-    perror("connect");
-    if (sock_ >= 0) {
-      close(sock_);
-      sock_ = -1;
-    }
-    freeaddrinfo(res);
-    return;
-  }
-  freeaddrinfo(res);
-  printf("Connected to %s:%d\n", host.c_str(), port);
-
-  // Send game settings to server for matchmaking
-  uint8_t settings[2] = {(uint8_t)board_dimension, (uint8_t)in_a_row};
-  send(sock_, settings, sizeof(settings), 0);
-}
-
-PVPOnlineScene::~PVPOnlineScene() {
-  // Disconnect from server
-  if (sock_ >= 0) {
-    close(sock_);
-  }
-}
-
-void PVPOnlineScene::pre_draw() {
-  if (sock_ < 0) {
-    return;
-  }
-
-  if (!role_assigned_) {
-    // Wait for server to send role byte ('X' or 'O')
-    char role;
-    ssize_t n = recv(sock_, &role, 1, MSG_DONTWAIT);
-    if (n == 1) {
-      player_x_ = (role == PLAYER_X);
-      role_assigned_ = true;
-      printf("Assigned role: %c\n", role);
-    }
-    return;
-  }
-}
-
-std::string PVPOnlineScene::get_game_label() const {
-  if (!role_assigned_) {
-    int dots = (int)(ImGui::GetTime() * 4) % 4;
-    return sock_ < 0 ? "Failed to connect"
-                     : "Waiting for opponent" + std::string(dots, '.');
-  }
-  Result result = game_.get_result();
-  if (result == Result::X_WIN) {
-    return "X: " + std::string(player_x_ ? "You win!" : "Opponent wins...");
-  } else if (result == Result::O_WIN) {
-    return "O: " + std::string(player_x_ ? "Opponent wins..." : "You win!");
-  } else if (result == Result::TIE) {
-    return "Tie...";
-  } else {
-    char char_turn = game_.get_x_turn() ? PLAYER_X : PLAYER_O;
-    if (game_.get_x_turn() == player_x_) {
-      return std::string(1, char_turn) + ": Your turn";
-    } else {
-      return std::string(1, char_turn) + ": Opponent's turn";
-    }
   }
 }
 

@@ -237,11 +237,6 @@ int main() {
         scene = std::make_shared<PVPLocalScene>(menu->get_board_dimension(),
                                                 menu->get_in_a_row(),
                                                 &audio_ctx, &tex_ctx);
-      } else if (menu->get_gamemode() == Gamemode::ONLINE_MULTIPLAYER) {
-        // Online multiplayer
-        scene = std::make_shared<PVPOnlineScene>(
-            menu->get_server_address(), menu->get_board_dimension(),
-            menu->get_in_a_row(), &audio_ctx, &tex_ctx);
       } else if (menu->get_gamemode() == Gamemode::AGAINST_BOT) {
         // Player vs bot
         bool player_x;
