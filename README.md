@@ -1,12 +1,12 @@
 ## Ongoing Tic-Tac-Toe
 
-A desktop tic-tac-toe game with configurable board size and win condition.
+A desktop tic-tac-toe game where play continues after scoring, rewarding repeated streaks.
 
 ### Features
 
 **Gameplay**
   - 3 game modes: Local Multiplayer, Player vs Bot, Bot vs Bot
-  - Configurable board size and win target (in-a-row)
+  - Configurable board size and in-a-row target
   - Choose to play as X, O, or random side
   - Persistent scores across rounds
 
